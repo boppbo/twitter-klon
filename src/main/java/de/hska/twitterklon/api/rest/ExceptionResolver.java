@@ -1,0 +1,25 @@
+package de.hska.twitterklon.api.rest;
+
+import javax.servlet.http.HttpServletRequest;
+
+import de.hska.twitterklon.api.transferobjects.ErrorResultTO;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+@ControllerAdvice
+public class ExceptionResolver {
+
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public ResponseEntity<ErrorResultTO> resolveHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException ex) {
+        return ErrorLogCreator.create(HttpStatus.METHOD_NOT_ALLOWED, ex.getMessage()).log().createResponseEntity();
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResultTO> resolveException(HttpServletRequest request, Exception ex) {
+        return ErrorLogCreator.create(HttpStatus.INTERNAL_SERVER_ERROR)
+                .log().createResponseEntity();
+    }
+}

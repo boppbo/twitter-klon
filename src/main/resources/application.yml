@@ -1,0 +1,73 @@
+# For a list of some properties that can be overridden go to http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+## The definitive list of properties comes from searching the source code (including Spring source code) for @ConfigurationProperties and @Value annotations, as well as the occasional use of RelaxedEnvironment
+
+##########################################
+# Tomcat config
+##########################################
+server:
+  port: ${port:8080}
+  tomcat:
+    #Set to 12k to support large cookie headers
+    max-http-header-size: 12288
+    uri-encoding: UTF-8
+    max-threads: 200
+
+##########################################
+# Spring config
+##########################################
+spring:
+  profiles:
+    active: DEV
+  jmx:
+    enabled: true
+
+##########################################
+# Microservice defaults
+##########################################
+info:
+  service:
+    name: @app.name@
+    build:
+      branch: ${branch.name}
+      projectVersion: @project.version@
+      rpmBuild: ${rpm.build:unknown}
+
+logging:
+  file: logs/@app.name@
+
+appConfig:
+  readTimeout: 5000
+  connectTimeout: 5000
+
+##########################################
+# Resource Twitter Klon defaults
+##########################################
+
+##########################################
+# DEV
+##########################################
+---
+spring:
+  profiles: DEV
+
+server:
+  tomcat:
+    basedir: target
+
+distributionService:
+  baseUrl: localhost
+  port: 6379
+
+##########################################
+# DS
+##########################################
+---
+spring:
+  profiles: DS
+
+distributionService:
+  baseUrl: localhost
+  port: 6379
+  auth:
+    user: root
+    password: admin
