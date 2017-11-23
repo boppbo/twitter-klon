@@ -2,6 +2,8 @@ package de.hska.twitterklon.api.rest;
 
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import de.hska.twitterklon.api.transferobjects.LoginTO;
@@ -17,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("v1/")
+@RequestMapping("api/v1/")
 public class LoginController {
 
     private final RedisDataService redisDataService;
@@ -30,7 +32,7 @@ public class LoginController {
     @RequestMapping(path = "login/{userId}", method = RequestMethod.POST)
     @ResponseBody
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public String login(@PathVariable("userId") String userId, @Valid @RequestBody LoginTO loginTO) {
+    public String login(@PathVariable("userId") String userId, @Valid @RequestBody LoginTO loginTO, HttpServletRequest request, HttpServletResponse response) {
         return UUID.randomUUID().toString() + userId;
     }
 

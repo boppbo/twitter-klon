@@ -12,6 +12,9 @@ server:
     uri-encoding: UTF-8
     max-threads: 200
 
+thymeleaf:
+  prefix: WEB-INF/templates/
+
 ##########################################
 # Spring config
 ##########################################
