@@ -39,8 +39,7 @@ logging:
   file: logs/@app.name@
 
 appConfig:
-  readTimeout: 5000
-  connectTimeout: 5000
+  sessionTimeout: 3600
 
 ##########################################
 # Resource Twitter Klon defaults

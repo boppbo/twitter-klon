@@ -15,19 +15,24 @@ public class ErrorLogCreator {
 
     private final HttpStatus httpStatus;
     private Optional<String> description = Optional.empty();
+    private Optional<String> detailedDescription = Optional.empty();
     private String incidentId;
 
     public static ErrorLogCreator create(HttpStatus status) {
-        return new ErrorLogCreator(status, null);
+        return new ErrorLogCreator(status, null, null);
     }
 
     public static ErrorLogCreator create(HttpStatus status, String description) {
-        return new ErrorLogCreator(status, description);
+        return new ErrorLogCreator(status, description, null);
+    }
+    public static ErrorLogCreator create(HttpStatus status, String description, String detailedDescription) {
+        return new ErrorLogCreator(status, description, detailedDescription);
     }
 
-    private ErrorLogCreator(HttpStatus httpStatus, String description) {
+    private ErrorLogCreator(HttpStatus httpStatus, String description, String detailedDescription) {
         this.httpStatus = httpStatus;
         this.description = Optional.ofNullable(description);
+        this.detailedDescription = Optional.ofNullable(detailedDescription);
         incidentId = UUID.randomUUID().toString();
     }
 
@@ -44,8 +49,11 @@ public class ErrorLogCreator {
     }
 
     public ErrorLogCreator log() {
-        logger.error(String.format("incident: %s, description: %s, status: %s", this.incidentId, this.description.orElse("null"), this
-                .httpStatus));
+        logger.error(String.format("incident: %s, description: %s, detailedDescription %s,status: %s",
+                this.incidentId,
+                this.description.orElse("null"),
+                this.detailedDescription.orElse("null"),
+                this.httpStatus));
         return this;
     }
 }

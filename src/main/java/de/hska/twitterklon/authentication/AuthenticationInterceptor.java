@@ -29,14 +29,8 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
         if(authCookie.isPresent()) {
             Cookie cookie = authCookie.get();
             if(cookie.getValue() != null) {
-                /*
-                //Todo: Use RedisDataService
-                Optional<String> uid = Optional.of(template.opsForValue().get(String.format("auth:%s:uid", cookie.getValue())));
-                uid.ifPresent(id -> {
-                    String name = (String) template.boundHashOps(String.format("uid:%s:user", id)).get("name");
-                    //TODO: Set session
-                });
-                */
+                Optional<String> userName = redisDataService.getUserNameFromSession(cookie.getValue());
+                userName.ifPresent(s -> SessionInformation.setUser(s, cookie.getValue()));
             }
         }
         return true;

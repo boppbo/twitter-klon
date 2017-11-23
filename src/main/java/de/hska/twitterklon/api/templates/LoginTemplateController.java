@@ -14,5 +14,4 @@ public class LoginTemplateController {
         model.addAttribute("siteName", "Twiffer");
         return "login";
     }
-
 }

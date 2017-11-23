@@ -8,11 +8,11 @@ public class LoginTO {
 
     @NotNull(message = "userId.not.null")
     @JsonProperty("uid")
-    String userId;
+    private String userId;
 
     @NotNull(message = "password.not.null")
     @JsonProperty("pw")
-    String password;
+    private String password;
 
     public String getUserId() {
         return userId;
