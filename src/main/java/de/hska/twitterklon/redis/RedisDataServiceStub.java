@@ -13,6 +13,11 @@ import java.util.Optional;
 @Profile("DEV")
 public class RedisDataServiceStub implements RedisDataService {
     @Override
+    public void createUser(String userName, String password) {
+
+    }
+
+    @Override
     public Optional<String> createSession(String userName, String password, int sessionDuration) {
         return null;
     }
@@ -33,17 +38,17 @@ public class RedisDataServiceStub implements RedisDataService {
     }
 
     @Override
-    public List<String> getFollower(String UserName) {
+    public List<String> getFollower(String userName) {
         return null;
     }
 
     @Override
-    public List<String> getFollowing(String UserName) {
+    public List<String> getFollowing(String userName) {
         return null;
     }
 
     @Override
-    public List<PostDto> getLastPosts(String UserName, int postCount) {
+    public List<PostDto> getLastPosts(String userName, int postCount) {
         return null;
     }
 
@@ -53,7 +58,7 @@ public class RedisDataServiceStub implements RedisDataService {
     }
 
     @Override
-    public List<PostDto> getLatestTimeline(String Username, int postCount) {
+    public List<PostDto> getLatestTimeline(String userName, int postCount) {
         return null;
     }
 }
