@@ -9,9 +9,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
 
-@EnableAutoConfiguration(exclude = { ErrorMvcAutoConfiguration.class })
 @SpringBootApplication
 @ComponentScan(basePackages = {"de.hska.twitterklon"})
+@EnableAutoConfiguration(exclude = { ErrorMvcAutoConfiguration.class })
 @EnableSpringDataWebSupport
 public class ApplicationConfiguration {
 
@@ -24,3 +24,4 @@ public class ApplicationConfiguration {
         return JacksonObjectMapperFactory.objectMapperForRestEndpoint();
     }
 }
+

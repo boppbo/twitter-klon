@@ -12,6 +12,9 @@ server:
     uri-encoding: UTF-8
     max-threads: 200
 
+thymeleaf:
+  prefix: WEB-INF/templates/
+
 ##########################################
 # Spring config
 ##########################################
@@ -36,8 +39,7 @@ logging:
   file: logs/@app.name@
 
 appConfig:
-  readTimeout: 5000
-  connectTimeout: 5000
+  sessionTimeout: 3600
 
 ##########################################
 # Resource Twitter Klon defaults
