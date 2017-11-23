@@ -9,6 +9,7 @@ public interface RedisDataService {
     void createUser(String userName, String password);
     Optional<String> createSession(String userName, String password, int sessionDuration);
     Optional<String> getUserNameFromSession(String sessionUUID);
+    void  removeSession(String sessionUUID);
 
     void addFollower(String follower, String following);
     void removeFollower(String follower, String following);

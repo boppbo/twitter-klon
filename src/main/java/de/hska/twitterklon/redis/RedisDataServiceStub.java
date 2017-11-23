@@ -48,6 +48,11 @@ public class RedisDataServiceStub implements RedisDataService {
     }
 
     @Override
+    public void removeSession(String sessionUUID) {
+
+    }
+
+    @Override
     public void addFollower(String follower, String following) {
 
     }
