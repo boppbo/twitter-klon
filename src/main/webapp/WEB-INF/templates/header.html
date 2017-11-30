@@ -12,17 +12,17 @@
 	<ul class="navbar-nav">
 	
 		      <li class="nav-item active">
-        <a class="nav-link" href="#">Timeline</a>
+        <a th:if="${loggedin}" class="nav-link" href="#">Timeline</a>
       </li>
 	
 	      <li class="nav-item active">
-        <a class="nav-link" style="margin-right: 20px" href="#" th:text="|Hallo ${username}|">Hallo Demo</a>
+        <a th:if="${loggedin}" class="nav-link" style="margin-right: 20px" href="#" th:text="|Hallo ${username}|">Hallo Demo</a>
       </li>
 	  
 	  
 	
 	
-    <form class="form-inline my-2 my-lg-0">
+    <form th:if="${loggedin}" class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-primary my-2 my-sm-0"style="display: none;" type="submit">Search</button>
     </form>
