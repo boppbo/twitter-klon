@@ -153,7 +153,7 @@ loginButton.addEventListener('click', function() {
 	
 	
 	
-$keyup(function(event) {
+$("html").keyup(function(event) {
     if (event.keyCode === 13) {
         $("#loginButton").click();
     }
