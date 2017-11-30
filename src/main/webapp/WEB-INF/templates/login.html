@@ -29,7 +29,7 @@
       </li>
 	
 	      <li class="nav-item active">
-        <a class="nav-link" style="margin-right: 20px" href="#" th:text="Hallo #{username">Hallo Demo</a>
+        <a class="nav-link" style="margin-right: 20px" href="#" th:text="Hallo #{username}">Hallo Demo</a>
       </li>
 	  
 	  
@@ -93,8 +93,11 @@
 
 <script>
 $( document ).ready(function() {
-var myEl = document.getElementById('registerButton');
-myEl.addEventListener('click', function() {
+var registerButton = document.getElementById('registerButton');
+var loginButton = document.getElementById('loginButton');
+
+
+registerButton.addEventListener('click', function() {
 $('#loginHeader').hide();
 $('#loginButton').hide();
 $('#registerHeader').show();
@@ -107,13 +110,12 @@ output[v.name] = v.value; // Assign the current value to the current key.
 })
 console.log(output);
 $.ajax({
-    url: "/api/v1/login",
+    url: "http://127.0.0.1/api/v1/register",
     type: "POST",
     data: JSON.stringify(output), // Send the object.
     contentType: "application/json",
     statusCode: {
         200: function (response) {
-        	$("#loginError").show().delay(3000).fadeOut("slow");
         	
         },
         401: function (response) {
@@ -142,6 +144,43 @@ $('#registerButton').animate({
 	left: '100px'
 },100);
 }, false);
+
+
+
+
+
+
+loginButton.addEventListener('click', function() {
+	
+	var recipient = $('#loginInput').serializeArray();
+	console.log(recipient);
+	var output = {}; // Declare an object.
+	recipient.forEach(function(v, i) {
+	output[v.name] = v.value; // Assign the current value to the current key.
+	})
+	console.log(output);
+	$.ajax({
+	    url: "http://127.0.0.1/api/v1/login",
+	    type: "POST",
+	    data: JSON.stringify(output), // Send the object.
+	    contentType: "application/json",
+	    statusCode: {
+	        200: function (response) {
+	        	$("#loginError").show().delay(3000).fadeOut("slow");
+	        	
+	        },
+	        401: function (response) {
+	        	
+	        }
+	     },
+	    success: function(response) {
+	      console.log(response);
+	    }
+	    
+	    
+	  });
+	}, false);
+
 // $(function() {
 //   var recipient = $('#loginInput').serializeArray();
 //   console.log(recipient);
