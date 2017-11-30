@@ -7,17 +7,8 @@
 
 
 @import url(//fonts.googleapis.com/css?family=Open+Sans);
-
-html {
-
-
-}
 body {
-    background-image: url("https://static.pexels.com/photos/459225/pexels-photo-459225.jpeg") !important;
-    background-size: cover;
-    background-attachment: fixed;
-    overflow-y:scroll;
-    height: 110% !important;
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iNiIgaGVpZ2h0PSI2Ij4KPHJlY3Qgd2lkdGg9IjYiIGhlaWdodD0iNiIgZmlsbD0iI2VlZWVlZSI+PC9yZWN0Pgo8ZyBpZD0iYyI+CjxyZWN0IHdpZHRoPSIzIiBoZWlnaHQ9IjMiIGZpbGw9IiNlNmU2ZTYiPjwvcmVjdD4KPHJlY3QgeT0iMSIgd2lkdGg9IjMiIGhlaWdodD0iMiIgZmlsbD0iI2Q4ZDhkOCI+PC9yZWN0Pgo8L2c+Cjx1c2UgeGxpbms6aHJlZj0iI2MiIHg9IjMiIHk9IjMiPjwvdXNlPgo8L3N2Zz4=");
 }
 
 
@@ -80,6 +71,7 @@ body {
     border-right: 0 solid #dcdcdc;
     border-bottom: 15px solid transparent;
     content:" ";
+  
 }
 .timeline > li > .timeline-panel:after {
     position: absolute;
@@ -231,48 +223,6 @@ body {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.btn-group-sm .btn-fab{
-    position: fixed !important;
-    right: 29px;
-}
-.btn-group .btn-fab{
-    position: fixed !important;
-    right: 20px;
-}
-#main{
-    bottom: 20px;
-}
-#mail{
-    bottom: 80px
-}
-#sms{
-    bottom: 125px
-}
-#autre{
-    bottom: 170px
-}
-
 </style>
 
 
@@ -285,7 +235,7 @@ body {
 
 
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="#">${siteName}</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -334,29 +284,10 @@ body {
 
 
 
+
 <div class="container col-lg-6">
 
-
-
-
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="btn-group">
-                    <a href="javascript:void(0)" class="btn btn-success btn-fab" id="main">
-                        <i class="material-icons">
-                            <svg style="width:24px;height:24px" viewBox="0 0 24 24">
-                                <path fill="#000000" d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
-                            </svg>
-                        </i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <ul id="timeline" class="timeline" style="margin-top: 2rem">
+<ul id="timeline" class="timeline">
     <li>
         <div class="timeline-badge">
           <a><i class="fa fa-circle" id=""></i></a>
@@ -487,6 +418,93 @@ body {
 <div id="loading" class="loader" style="float: none; margin: 0 auto; display: none;"></div>
 </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="container col-lg-4" style="margin-top: 10%"> -->
+
+
+<!-- <div class="card border-dark mb-0" style="max-width: 100%"> -->
+<!--   <div class="card-header">Header</div> -->
+  
+  
+<!--   <div class="card text-white bg-secondary mr-3 mb-2 ml-3 mt-1"> -->
+<!--   <div class="card-header">${username}</div> -->
+<!--   <div class="card-body"> -->
+<!--     <h4 class="card-title">${postContent}</h4> -->
+	
+<!--   </div> -->
+<!--   <div class="card-footer bg-transparent">3 Seconds ago</div> -->
+<!-- </div> -->
+
+
+
+<!--   <div class="card text-white bg-secondary mr-3 mb-2 ml-3 mt-1"> -->
+<!--   <div class="card-header">${username}</div> -->
+<!--   <div class="card-body"> -->
+<!--     <h4 class="card-title">${postContent}</h4> -->
+	
+<!--   </div> -->
+<!--   <div class="card-footer bg-transparent">3 Seconds ago</div> -->
+<!-- </div> -->
+
+
+<!--   <div class="card text-white bg-secondary mr-3 mb-2 ml-3 mt-1"> -->
+<!--   <div class="card-header">${username}</div> -->
+<!--   <div class="card-body"> -->
+<!--     <h4 class="card-title">${postContent}</h4> -->
+	
+<!--   </div> -->
+<!--   <div class="card-footer bg-transparent">3 Seconds ago</div> -->
+<!-- </div> -->
+
+
+<!--   <div class="card text-white bg-secondary mr-3 mb-2 ml-3 mt-1"> -->
+<!--   <div class="card-header">${username}</div> -->
+<!--   <div class="card-body"> -->
+<!--     <h4 class="card-title">${postContent}</h4> -->
+	
+<!--   </div> -->
+<!--   <div class="card-footer bg-transparent">3 Seconds ago</div> -->
+<!-- </div> -->
+
+
+<!--   <div class="card text-white bg-secondary mr-3 mb-2 ml-3 mt-1"> -->
+<!--   <div class="card-header">${username}</div> -->
+<!--   <div class="card-body"> -->
+<!--     <h4 class="card-title">${postContent}</h4> -->
+	
+<!--   </div> -->
+<!--   <div class="card-footer bg-transparent">3 Seconds ago</div> -->
+<!-- </div> -->
+<!--   <div class="card-body text-primary"> -->
+
+
+
+<!--   </div> -->
+<!-- </div> -->
+
+
+<!-- </div> -->
+
+
+
+
 <script
 			src="https://code.jquery.com/jquery-3.2.1.js"
 			  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
@@ -512,20 +530,20 @@ $(document).ready(function() {
 				dataType: 'html',
 			    statusCode: {
 			        405: function (response) {
-
-                        $('#loading').delay(2000).hide(0);
+			        	
+			        	
 			        	if (loc == 0) {
 							loc = 1;
-			        	    var html = '<li style="display: none" class="timeline-inverted"><div class="timeline-badge"><a><i class="fa fa-circle invert" id=""></i></a></div><div class="timeline-panel"><div class="timeline-heading"><h4>Timeline Event</h4></div><div class="timeline-body"><p>Crede respiciens loco dedit beneficio ad suis alteri si puella eius in. Acceptis codicello lenonem in deinde plectrum anni ipsa quod eam est Apollonius.</p></div><div class="timeline-footer primary"><p class="text-right">Mar-02-2014</p></div></div></li>';
-			        	    $(html).insertBefore('#clearfix').fadeIn( "slow" );
+			        	    var html = '<li class="timeline-inverted"><div class="timeline-badge"><a><i class="fa fa-circle invert" id=""></i></a></div><div class="timeline-panel"><div class="timeline-heading"><h4>Timeline Event</h4></div><div class="timeline-body"><p>Crede respiciens loco dedit beneficio ad suis alteri si puella eius in. Acceptis codicello lenonem in deinde plectrum anni ipsa quod eam est Apollonius.</p></div><div class="timeline-footer primary"><p class="text-right">Mar-02-2014</p></div></div></li>';
+			        	    $(html).insertBefore('#clearfix');
 			        	    lock = 1;
 			        	} else {
 			        	    loc = 0;
-			        	    var html = '<li style="display: none"><div class="timeline-badge"><a><i class="fa fa-circle" id=""></i></a></div><div class="timeline-panel"><div class="timeline-heading"><h4>Timeline Event</h4></div><div class="timeline-body"><p>Adfertur guttae sapientiae ducitur est Apollonius ut a a his domino Lycoridem in lucem. Theophile atque bona dei cenam veniebant est cum. Iusto opes mihi Tyrum in modo compungi mulierem ubi augue eiusdem ordo quos vero diam omni catervis famulorum. Bene dictis ut diem finito servis unde.</p></div><div class="timeline-footer"><p class="text-right">Mar-01-2014</p></div></div></li>';
-							$(html).insertBefore('#clearfix').fadeIn( "slow" );
+			        	    var html = '<li><div class="timeline-badge"><a><i class="fa fa-circle" id=""></i></a></div><div class="timeline-panel"><div class="timeline-heading"><h4>Timeline Event</h4></div><div class="timeline-body"><p>Adfertur guttae sapientiae ducitur est Apollonius ut a a his domino Lycoridem in lucem. Theophile atque bona dei cenam veniebant est cum. Iusto opes mihi Tyrum in modo compungi mulierem ubi augue eiusdem ordo quos vero diam omni catervis famulorum. Bene dictis ut diem finito servis unde.</p></div><div class="timeline-footer"><p class="text-right">Mar-01-2014</p></div></div></li>';
+							$(html).insertBefore('#clearfix');
 							lock = 1;
 			        	}
-
+			        	$('#loading').delay(10000).hide();
 						
 			        	
 			        },
@@ -534,16 +552,16 @@ $(document).ready(function() {
 			        	
 			        	if (loc == 0) {
 			        	    loc = 1;
-			        	    var html = '<li style="display: none" class="timeline-inverted"><div class="timeline-badge"><a><i class="fa fa-circle invert" id=""></i></a></div><div class="timeline-panel"><div class="timeline-heading"><h4>Timeline Event</h4></div><div class="timeline-body"><p>Crede respiciens loco dedit beneficio ad suis alteri si puella eius in. Acceptis codicello lenonem in deinde plectrum anni ipsa quod eam est Apollonius.</p></div><div class="timeline-footer primary"><p class="text-right">Mar-02-2014</p></div></div></li>';
-			        	    $(html).insertBefore('#clearfix').fadeIn( "slow" );
+			        	    var html = '<li class="timeline-inverted"><div class="timeline-badge"><a><i class="fa fa-circle invert" id=""></i></a></div><div class="timeline-panel"><div class="timeline-heading"><h4>Timeline Event</h4></div><div class="timeline-body"><p>Crede respiciens loco dedit beneficio ad suis alteri si puella eius in. Acceptis codicello lenonem in deinde plectrum anni ipsa quod eam est Apollonius.</p></div><div class="timeline-footer primary"><p class="text-right">Mar-02-2014</p></div></div></li>';
+			        	    $(html).insertBefore('#clearfix');
 			        	    lock = 1;
 			        	} else {
 			        	    loc = 0;
-			        	    var html = '<li style="display: none"><div class="timeline-badge"><a><i class="fa fa-circle" id=""></i></a></div><div class="timeline-panel"><div class="timeline-heading"><h4>Timeline Event</h4></div><div class="timeline-body"><p>Adfertur guttae sapientiae ducitur est Apollonius ut a a his domino Lycoridem in lucem. Theophile atque bona dei cenam veniebant est cum. Iusto opes mihi Tyrum in modo compungi mulierem ubi augue eiusdem ordo quos vero diam omni catervis famulorum. Bene dictis ut diem finito servis unde.</p></div><div class="timeline-footer"><p class="text-right">Mar-01-2014</p></div></div></li>';
-							$(html).insertBefore('#clearfix').show('slow');
+			        	    var html = '<li><div class="timeline-badge"><a><i class="fa fa-circle" id=""></i></a></div><div class="timeline-panel"><div class="timeline-heading"><h4>Timeline Event</h4></div><div class="timeline-body"><p>Adfertur guttae sapientiae ducitur est Apollonius ut a a his domino Lycoridem in lucem. Theophile atque bona dei cenam veniebant est cum. Iusto opes mihi Tyrum in modo compungi mulierem ubi augue eiusdem ordo quos vero diam omni catervis famulorum. Bene dictis ut diem finito servis unde.</p></div><div class="timeline-footer"><p class="text-right">Mar-01-2014</p></div></div></li>';
+							$(html).insertBefore('#clearfix');
 							lock = 1;
 			        	}
-			        	$('#loading').delay(10000).hide(0);
+			        	$('#loading').delay(10000).hide();
 			        }
 			     },
 				success: function() {
