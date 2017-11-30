@@ -135,11 +135,11 @@ loginButton.addEventListener('click', function() {
 	    contentType: "application/json",
 	    statusCode: {
 	        200: function (response) {
-	        	$("#loginError").show().delay(3000).fadeOut("slow");
+	        	window.location = "/";
 	        	
 	        },
 	        401: function (response) {
-	        	
+	        	$("#loginError").show().delay(3000).fadeOut("slow");
 	        }
 	     },
 	    success: function(response) {
@@ -149,6 +149,15 @@ loginButton.addEventListener('click', function() {
 	    
 	  });
 	}, false);
+	
+	
+	
+	
+$keyup(function(event) {
+    if (event.keyCode === 13) {
+        $("#loginButton").click();
+    }
+});
 
 // $(function() {
 //   var recipient = $('#loginInput').serializeArray();
