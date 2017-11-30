@@ -12,7 +12,7 @@ import redis.clients.jedis.JedisPoolConfig;
 public class DistributionServiceConfiguration {
 
     @Value("${distributionService.baseUrl}")
-    private String distributionServiceBaseurl;
+    private String distributionServiceBaseUrl;
 
     @Value("${distributionService.port}")
     private int distributionServicePort;
@@ -26,7 +26,7 @@ public class DistributionServiceConfiguration {
         poolConfig.setTestOnBorrow(true);
 
         final JedisConnectionFactory connectionFactory = new JedisConnectionFactory();
-        connectionFactory.setHostName(distributionServiceBaseurl);
+        connectionFactory.setHostName(distributionServiceBaseUrl);
         connectionFactory.setPort(distributionServicePort);
         connectionFactory.afterPropertiesSet();
         connectionFactory.setUsePool(true);
