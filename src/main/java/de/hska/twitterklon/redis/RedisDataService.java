@@ -16,8 +16,19 @@ public interface RedisDataService {
     List<String> getFollower(String userName);
     List<String> getFollowing(String userName);
 
-    List<PostDto> getLastPosts(String userName, int postCount);
+    List<PostDto> getLastPosts(String userName, int postCount,int skipCount);
+    default List<PostDto> getLastPosts(String userName, int postCount) {
+        return this.getLastPosts(userName, postCount, 0);
+    }
 
-    List<PostDto> getLatestTimeline(int postCount);
-    List<PostDto> getLatestTimeline(String userName, int postCount);
+    List<PostDto> getLatestTimeline(String userName, int postCount, int skipCount);
+    default List<PostDto> getLatestTimeline(String userName, int postCount) {
+        return this.getLatestTimeline(userName, postCount, 0);
+    }
+    default List<PostDto> getLatestTimeline(int postCount, int skipCount) {
+        return this.getLatestTimeline(null, postCount, skipCount);
+    }
+    default List<PostDto> getLatestTimeline(int postCount) {
+        return this.getLatestTimeline(null, postCount, 0);
+    }
 }
