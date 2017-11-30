@@ -1,7 +1,6 @@
 package de.hska.twitterklon.api.rest;
 
 import java.util.Optional;
-import java.util.UUID;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -38,6 +37,18 @@ public class LoginController {
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     public void login(@Valid @RequestBody LoginTO loginTO, HttpServletResponse response) {
+        createSession(response, loginTO);
+    }
+
+    @RequestMapping(path = "register", method = RequestMethod.POST)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.CREATED)
+    public void register(@Valid @RequestBody LoginTO loginTO, HttpServletResponse response) {
+        redisDataService.createUser(loginTO.getUserId(), loginTO.getPassword());
+        createSession(response, loginTO);
+    }
+
+    private void createSession(HttpServletResponse response, @Valid @RequestBody LoginTO loginTO) {
         Optional<String> uuid = redisDataService.createSession(loginTO.getUserId(), loginTO.getPassword(), sessionTTL);
 
         if(!uuid.isPresent()) {
@@ -49,13 +60,7 @@ public class LoginController {
     private void createSessionCookie(HttpServletResponse response, String uuid) {
         Cookie cookie = new Cookie("auth", uuid);
         cookie.setMaxAge(-1);
+        cookie.setPath("/");
         response.addCookie(cookie);
-    }
-
-    @RequestMapping(path = "register", method = RequestMethod.POST)
-    @ResponseBody
-    @ResponseStatus(HttpStatus.CREATED)
-    public String register(@Valid @RequestBody LoginTO loginTO) {
-        return UUID.randomUUID().toString();
     }
 }

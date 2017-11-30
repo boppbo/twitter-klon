@@ -27,6 +27,5 @@ public class ExceptionResolver {
     public ResponseEntity<ErrorResultTO> resolveException(HttpServletRequest request, Exception ex) {
         return ErrorLogCreator.create(HttpStatus.INTERNAL_SERVER_ERROR, null, ex.getMessage())
                 .log().createResponseEntity();
-
     }
 }

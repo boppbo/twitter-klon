@@ -17,8 +17,7 @@ public abstract class SessionInformation {
         user.set(userInfo);
     }
 
-    public static boolean isUserSignedIn(String name) {
-        UserInfo userInfo = user.get();
-        return userInfo != null && userInfo.name.equals(name);
+    public static boolean isUserSignedIn() {
+        return user.get() != null && user.get().name != null && user.get().uuid != null;
     }
 }

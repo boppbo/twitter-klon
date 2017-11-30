@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/api/v1")
 public class TimeLineController {
 
     @GetMapping
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    public String placeholder() {
+    public String getPosts() {
         return "Hello World!";
     }
 }

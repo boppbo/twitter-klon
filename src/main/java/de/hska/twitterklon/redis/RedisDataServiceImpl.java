@@ -72,17 +72,12 @@ public class RedisDataServiceImpl implements RedisDataService {
     }
 
     @Override
-    public List<PostDto> getLastPosts(String userName, int postCount) {
+    public List<PostDto> getLastPosts(String userName, int postCount, int skipCount) {
         return null;
     }
 
     @Override
-    public List<PostDto> getLatestTimeline(int postCount) {
-        return null;
-    }
-
-    @Override
-    public List<PostDto> getLatestTimeline(String userName, int postCount) {
+    public List<PostDto> getLatestTimeline(String userName, int postCount, int skipCount) {
         return null;
     }
 }
