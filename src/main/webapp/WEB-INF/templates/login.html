@@ -4,7 +4,7 @@
  <meta charset="UTF-8"> 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.min.css">
 
-<title>${siteName} - Login</title>
+<title th:text="#{siteName} - Login">Demo - Login</title>
 </head>
 
 <body>
@@ -12,7 +12,7 @@
 
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">${siteName}</a>
+  <a class="navbar-brand" href="#" th:text="#{siteName}">Demo</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -29,7 +29,7 @@
       </li>
 	
 	      <li class="nav-item active">
-        <a class="nav-link" style="margin-right: 20px" href="#">Hallo ${username}</a>
+        <a class="nav-link" style="margin-right: 20px" href="#" th:text="Hallo #{username">Hallo Demo</a>
       </li>
 	  
 	  
@@ -92,21 +92,13 @@
 
 
 <script>
-
-
-
 $( document ).ready(function() {
-
-
-
 var myEl = document.getElementById('registerButton');
 myEl.addEventListener('click', function() {
 $('#loginHeader').hide();
 $('#loginButton').hide();
 $('#registerHeader').show();
 $('#backToLogin').show();
-
-
 var recipient = $('#loginInput').serializeArray();
 console.log(recipient);
 var output = {}; // Declare an object.
@@ -114,7 +106,6 @@ recipient.forEach(function(v, i) {
 output[v.name] = v.value; // Assign the current value to the current key.
 })
 console.log(output);
-
 $.ajax({
     url: "/api/v1/login",
     type: "POST",
@@ -135,49 +126,30 @@ $.ajax({
     
     
   });
-
-
 $('#registerButton').css('float','right');
 $('#registerButton').animate({
 	left: '100px'
 },100);
 }, false);
-
-
 var myEl = document.getElementById('backToLogin');
 myEl.addEventListener('click', function() {
 $('#loginHeader').show();
 $('#loginButton').show();
 $('#registerHeader').hide();
 $('#backToLogin').hide();
-
-
 $('#registerButton').css('float','left');
 $('#registerButton').animate({
 	left: '100px'
 },100);
 }, false);
-
-
-
-
-
-
-
-
-
-
 // $(function() {
 //   var recipient = $('#loginInput').serializeArray();
 //   console.log(recipient);
 //   var output = {}; // Declare an object.
-
 //   recipient.forEach(function(v, i) {
 //     output[v.name] = v.value; // Assign the current value to the current key.
 //   });
   
-
-
 //   $.ajax({
 //     url: "http://httpbin.org/post",
 //     type: "POST",
