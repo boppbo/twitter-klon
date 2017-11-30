@@ -330,13 +330,13 @@ body {
         </div>
         <div class="timeline-panel">
             <div class="timeline-heading">
-                <h4 th:text="${post.name}">Example</h4>
+                <h4 th:text="${post.userName}">Example</h4>
             </div>
             <div class="timeline-body" th:text="${post.content}">
                 <p>Invitamus me testatur sed quod non dum animae tuae lacrimis ut libertatem deum rogus aegritudinis causet. Dicens hoc contra serpentibus isto.</p>
             </div>
             <div class="timeline-footer">
-                <p class="text-right" th:text="${post.time}">Feb-21-2014</p>
+                <p class="text-right" th:text="${post.creationTime}">Feb-21-2014</p>
             </div>
         </div>
     </li>
