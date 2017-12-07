@@ -3,10 +3,11 @@ package de.hska.twitterklon.api.transferobjects;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import de.hska.twitterklon.api.transferobjects.validators.ValidUserName;
 
 public class LoginTO {
 
-    @NotNull(message = "userId.not.null")
+    @ValidUserName
     @JsonProperty("uid")
     private String userId;
 

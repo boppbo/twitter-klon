@@ -9,7 +9,7 @@ import javax.validation.Constraint;
 
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = ContentValidator.class)
-public @interface ValidContent {
-        String message() default "content.not.valid";
+@Constraint(validatedBy = UserNameValidator.class)
+public @interface ValidUserName {
+    String message() default "userName.not.valid";
 }
