@@ -3,12 +3,16 @@ package de.hska.twitterklon.configuration;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
 import redis.clients.jedis.JedisPoolConfig;
 
 @Configuration
+@EnableRedisRepositories("de.hska.twitterklon.redis")
 public class DistributionServiceConfiguration {
 
     @Value("${distributionService.baseUrl}")
@@ -25,19 +29,21 @@ public class DistributionServiceConfiguration {
         poolConfig.setMinIdle(5);
         poolConfig.setTestOnBorrow(true);
 
-        final JedisConnectionFactory connectionFactory = new JedisConnectionFactory();
+        final JedisConnectionFactory connectionFactory = new JedisConnectionFactory(poolConfig);
         connectionFactory.setHostName(distributionServiceBaseUrl);
         connectionFactory.setPort(distributionServicePort);
         connectionFactory.afterPropertiesSet();
-        connectionFactory.setUsePool(true);
-        connectionFactory.setPoolConfig(poolConfig);
         return connectionFactory;
     }
 
     @Bean
-    public StringRedisTemplate redisTemplate() {
-        final StringRedisTemplate redisTemplate = new StringRedisTemplate();
-        redisTemplate.setConnectionFactory(connectionFactory());
-        return redisTemplate;
+    public StringRedisTemplate redisTemplate(RedisConnectionFactory connectionFactory) {
+        return new StringRedisTemplate(connectionFactory);
+    }
+
+    @Bean
+    @Primary
+    public RedisTemplate<?, ?> redisTemplate() {
+        return new RedisTemplate<byte[], byte[]>();
     }
 }
