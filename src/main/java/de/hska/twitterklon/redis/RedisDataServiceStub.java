@@ -1,18 +1,12 @@
 package de.hska.twitterklon.redis;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.UUID;
-
-import javax.annotation.PostConstruct;
-
 import de.hska.twitterklon.api.transferobjects.PostDto;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.PostConstruct;
+import java.util.*;
 
 @Service
 @Primary
@@ -73,7 +67,7 @@ public class RedisDataServiceStub implements RedisDataService {
     }
 
     @Override
-    public void addPost(PostDto post) {
+    public void addPost(String content) {
 
     }
 

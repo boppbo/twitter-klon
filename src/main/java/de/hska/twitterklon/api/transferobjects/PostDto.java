@@ -1,12 +1,13 @@
 package de.hska.twitterklon.api.transferobjects;
 
-import javax.validation.constraints.NotNull;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import de.hska.twitterklon.api.transferobjects.validators.ValidContent;
+import de.hska.twitterklon.authentication.SessionInformation;
 import groovy.transform.EqualsAndHashCode;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
+
+import javax.validation.constraints.NotNull;
 
 @EqualsAndHashCode
 @RedisHash("Posts")
@@ -27,8 +28,8 @@ public class PostDto {
     public PostDto() {
     }
 
-    public PostDto(String content, String userName) {
-        this("", content, userName, String.valueOf(System.currentTimeMillis()));
+    public PostDto(String content) {
+        this("", content, SessionInformation.getUserName(), String.valueOf(System.currentTimeMillis()));
     }
 
     public PostDto(String id, String content, String userName, String creationTime) {

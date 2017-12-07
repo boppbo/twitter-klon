@@ -146,15 +146,11 @@ public class RedisDataServiceImpl implements RedisDataService {
     }
 
     @Override
-    public void addPost(PostDto post) {
-        if (post == null
-                || !StringUtils.isEmpty(post.getId())
-                || StringUtils.isEmpty(post.getContent())
-                || StringUtils.isEmpty(post.getCreationTime())
-                || StringUtils.isEmpty(post.getUserName()))
+    public void addPost(String content) {
+        if (StringUtils.isEmpty(content))
             throw new IllegalArgumentException("post");
 
-        post = this.posts.save(post);
+        PostDto post = this.posts.save(new PostDto(content));
         this.listOps.leftPush(buildPostsKey(post.getUserName()), post.getId());
         this.listOps.leftPush(TIMELINE_KEY, post.getId());
 
