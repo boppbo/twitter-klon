@@ -1,6 +1,5 @@
 package de.hska.twitterklon.api.templates;
 
-import de.hska.twitterklon.authentication.SessionInformation;
 import de.hska.twitterklon.redis.RedisDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,21 +20,24 @@ public class TimeLineTemplateController {
         this.redisDataService = redisDataService;
     }
 
-    @GetMapping
+    @RequestMapping(path = "global", method = RequestMethod.GET)
     public String globalTimeLine(Model model) {
-        if(SessionInformation.isUserSignedIn()) {
-        TemplateModelFiller.fillStandardParameters(model);
-            return "posts";
-        }
-        return "redirect:/login";
+        return getTimeLineTemplate(model);
     }
 
     @RequestMapping(path = "user/{userName}", method = RequestMethod.GET)
     public String userTimeLine(@PathVariable String userName, Model model) {
+        return getTimeLineTemplate(model);
+    }
+
+    @GetMapping
+    public String selfTimeLine(Model model) {
+        return getTimeLineTemplate(model);
+    }
+
+    private String getTimeLineTemplate(Model model) {
         TemplateModelFiller.fillStandardParameters(model);
-        if(SessionInformation.isUserSignedIn()) {
-            return "posts";
-        }
-        return "redirect:/login";
+        return "posts";
+
     }
 }

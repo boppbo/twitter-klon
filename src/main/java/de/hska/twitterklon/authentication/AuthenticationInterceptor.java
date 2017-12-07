@@ -1,5 +1,6 @@
 package de.hska.twitterklon.authentication;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -21,7 +22,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
     }
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
         if(request.getCookies() != null) {
             Optional<Cookie> authCookie = Arrays.stream(request.getCookies()).filter(cookie -> cookie.getName().equals("auth")).findFirst();
             if (authCookie.isPresent()) {
@@ -32,6 +33,16 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
                 }
             }
         }
+
+        if(!isPublicURI(request) && !SessionInformation.isUserSignedIn()) {
+            response.sendRedirect("/login");
+        }
         return true;
+    }
+
+    private boolean isPublicURI(HttpServletRequest request) {
+        return  request.getRequestURI().equals("/login") ||
+                request.getRequestURI().equals("/api/v1/register") ||
+                request.getRequestURI().equals("/api/v1/login");
     }
 }
