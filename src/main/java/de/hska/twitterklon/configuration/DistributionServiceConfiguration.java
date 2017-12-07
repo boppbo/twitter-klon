@@ -9,7 +9,6 @@ import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
-import redis.clients.jedis.JedisPoolConfig;
 
 @Configuration
 @EnableRedisRepositories("de.hska.twitterklon.redis")
@@ -23,13 +22,7 @@ public class DistributionServiceConfiguration {
 
     @Bean
     public RedisConnectionFactory connectionFactory() {
-        final JedisPoolConfig poolConfig = new JedisPoolConfig();
-        poolConfig.setMaxTotal(20);
-        poolConfig.setMaxIdle(10);
-        poolConfig.setMinIdle(5);
-        poolConfig.setTestOnBorrow(true);
-
-        final JedisConnectionFactory connectionFactory = new JedisConnectionFactory(poolConfig);
+        final JedisConnectionFactory connectionFactory = new JedisConnectionFactory();
         connectionFactory.setHostName(distributionServiceBaseUrl);
         connectionFactory.setPort(distributionServicePort);
         connectionFactory.afterPropertiesSet();
