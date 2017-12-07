@@ -6,10 +6,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import javax.validation.Constraint;
+import javax.validation.Payload;
 
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = ContentValidator.class)
 public @interface ValidContent {
-        String message() default "content.not.valid";
+    String message() default "content.not.valid";
+    Class<?>[] groups() default {};
+    Class<? extends Payload>[] payload() default {};
 }
