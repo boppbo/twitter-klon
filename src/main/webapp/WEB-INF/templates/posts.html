@@ -504,7 +504,8 @@ $(document).ready(function() {
 		var recipient = $('#loginInput').serializeArray();
 		console.log(recipient);
 		var output = {}; // Declare an object.
-		output["contend"] = "test"; // Assign the current value to the current key.
+		var input = $('#tweetInput').val();
+		output["content"] = input; // Assign the current value to the current key.
 		console.log(output);
 		$.ajax({
 		    url: "/api/v1/timeline/self",
