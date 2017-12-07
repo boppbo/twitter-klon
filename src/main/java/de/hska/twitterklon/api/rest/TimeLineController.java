@@ -48,7 +48,7 @@ public class TimeLineController {
     @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
     public void createNewPost(@RequestBody PostDto postDto) {
-        redisDataService.addPost(postDto);
+        redisDataService.addPost(postDto.getContent());
     }
 
     @RequestMapping(path = "/user/{userName}", method = RequestMethod.GET)
