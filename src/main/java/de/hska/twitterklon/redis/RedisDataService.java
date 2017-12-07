@@ -16,6 +16,7 @@ public interface RedisDataService {
     List<String> getFollower(String userName);
     List<String> getFollowing(String userName);
 
+    void addPost(PostDto post);
     List<PostDto> getLastPosts(String userName, int postCount,int skipCount);
     default List<PostDto> getLastPosts(String userName, int postCount) {
         return this.getLastPosts(userName, postCount, 0);

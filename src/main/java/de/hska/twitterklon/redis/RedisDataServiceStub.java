@@ -73,6 +73,11 @@ public class RedisDataServiceStub implements RedisDataService {
     }
 
     @Override
+    public void addPost(PostDto post) {
+
+    }
+
+    @Override
     public List<PostDto> getLastPosts(String userName, int postCount, int skipCount) {
         return null;
     }
