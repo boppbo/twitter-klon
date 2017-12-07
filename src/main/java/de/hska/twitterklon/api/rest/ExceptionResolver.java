@@ -1,5 +1,6 @@
 package de.hska.twitterklon.api.rest;
 
+import javax.management.openmbean.KeyAlreadyExistsException;
 import javax.servlet.http.HttpServletRequest;
 
 import de.hska.twitterklon.api.exceptions.LoginFailedException;
@@ -16,6 +17,11 @@ public class ExceptionResolver {
     @ExceptionHandler(LoginFailedException.class)
     public ResponseEntity<ErrorResultTO> resolveLoginFailedException(LoginFailedException ex) {
         return ErrorLogCreator.create(HttpStatus.UNAUTHORIZED, ex.getMessage()).log().createResponseEntity();
+    }
+
+    @ExceptionHandler(KeyAlreadyExistsException.class)
+    public ResponseEntity<ErrorResultTO> resolveKeyAlreadyExistsException(KeyAlreadyExistsException ex ){
+        return ErrorLogCreator.create(HttpStatus.CONFLICT, ex.getMessage()).log().createResponseEntity();
     }
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
