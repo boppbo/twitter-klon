@@ -112,6 +112,33 @@ $('#registerButton').css('float','left');
 $('#registerButton').animate({
 	left: '100px'
 },100);
+
+
+
+
+$.ajax({
+    url: "/api/v1/register",
+    type: "POST",
+    data: JSON.stringify(output), // Send the object.
+    contentType: "application/json",
+    statusCode: {
+        200: function (response) {
+        	window.location = "/";
+        	
+        },
+        401: function (response) {
+        	$("#loginError").show().delay(3000).fadeOut("slow");
+        }
+     },
+    success: function(response) {
+      console.log(response);
+    }
+    
+    
+  });
+
+
+
 }, false);
 
 
