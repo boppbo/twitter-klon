@@ -8,6 +8,7 @@ import de.hska.twitterklon.redis.RedisDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,6 +42,13 @@ public class TimeLineController {
     @ResponseStatus(HttpStatus.OK)
     public List<PostDto> getSelfTimeLinePosts(@RequestParam(name = "skipCount", required = true) int skipCount) {
         return redisDataService.getLatestTimeline(SessionInformation.getUserName(), POST_COUNT, skipCount);
+    }
+
+    @RequestMapping(path = "/self", method = RequestMethod.POST)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createNewPost(@RequestBody PostDto postDto) {
+        redisDataService.addPost(postDto);
     }
 
     @RequestMapping(path = "/user/{userName}", method = RequestMethod.GET)
