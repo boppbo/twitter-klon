@@ -15,13 +15,12 @@ public class PostDto {
     private String id;
 
     @NotNull(message = "content.not.null")
+    @ValidContent
     private String content;
 
-    @NotNull(message = "time.not.null")
     @JsonProperty("time")
     private String creationTime;
 
-    @ValidContent
     @JsonProperty("name")
     private String userName;
 
@@ -67,7 +66,7 @@ public class PostDto {
         return userName;
     }
 
-    public void setUserName(String userName) {
+    private void setUserName(String userName) {
         this.userName = userName;
     }
 
