@@ -6,6 +6,15 @@ public abstract class SessionInformation {
 
     private static final ThreadLocal<UserInfo> user = new NamedThreadLocal<>("UserInformation");
 
+    public static String getUserName() {
+      return user.get() == null ? "" : user.get().name;
+    }
+
+
+    public static String getUuid() {
+        return user.get() == null ? "" : user.get().uuid;
+    }
+
     private static class UserInfo {
         String name;
         String uuid;

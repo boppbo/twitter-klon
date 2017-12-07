@@ -49,7 +49,7 @@ public class RedisDataServiceStub implements RedisDataService {
 
     @Override
     public void removeSession(String sessionUUID) {
-
+        sessions.remove(sessionUUID);
     }
 
     @Override

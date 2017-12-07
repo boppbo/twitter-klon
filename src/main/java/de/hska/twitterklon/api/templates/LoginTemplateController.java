@@ -12,6 +12,7 @@ public class LoginTemplateController {
     @GetMapping
     public String login(Model model) {
         model.addAttribute("siteName", "Twiffer");
+        model.addAttribute("loggedin", "false");
         return "login";
     }
 }

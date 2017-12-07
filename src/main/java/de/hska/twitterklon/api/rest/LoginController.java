@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import de.hska.twitterklon.api.exceptions.LoginFailedException;
 import de.hska.twitterklon.api.transferobjects.LoginTO;
+import de.hska.twitterklon.authentication.SessionInformation;
 import de.hska.twitterklon.redis.RedisDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -46,6 +47,13 @@ public class LoginController {
     public void register(@Valid @RequestBody LoginTO loginTO, HttpServletResponse response) {
         redisDataService.createUser(loginTO.getUserId(), loginTO.getPassword());
         createSession(response, loginTO);
+    }
+
+    @RequestMapping(path = "logout", method = RequestMethod.GET)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public void logout() {
+        redisDataService.removeSession(SessionInformation.getUuid());
     }
 
     private void createSession(HttpServletResponse response, @Valid @RequestBody LoginTO loginTO) {

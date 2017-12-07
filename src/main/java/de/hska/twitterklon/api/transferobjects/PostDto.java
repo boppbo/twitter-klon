@@ -1,29 +1,53 @@
 package de.hska.twitterklon.api.transferobjects;
 
-import java.security.Timestamp;
+import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import de.hska.twitterklon.api.transferobjects.validators.ValidContent;
 
 public class PostDto {
-    private String Content;
-    private Timestamp CreationTime;
-    private String UserName;
+
+    @NotNull(message = "content.not.null")
+    private String content;
+
+    @NotNull(message = "time.not.null")
+    @JsonProperty("time")
+    private String creationTime;
+
+    @ValidContent
+    @JsonProperty("name")
+    private String userName;
 
     public String getContent() {
-        return Content;
+        return content;
     }
 
     public void setContent(String content) {
-        Content = content;
+        this.content = content;
     }
 
-    public Timestamp getCreationTime() {
-        return CreationTime;
+    public String getCreationTime() {
+        return creationTime;
     }
 
-    public void setCreationTime(Timestamp creationTime) {
-        CreationTime = creationTime;
+    public void setCreationTime(String creationTime) {
+        this.creationTime = creationTime;
     }
 
-    public String getUserName() { return UserName; }
+    public String getUserName() {
+        return userName;
+    }
 
-    public void setUserName(String userName) { UserName = userName; }
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    @Override
+    public String toString() {
+        return "PostDto{" +
+                "content='" + content + '\'' +
+                ", creationTime=" + creationTime +
+                ", userName='" + userName + '\'' +
+                '}';
+    }
 }
