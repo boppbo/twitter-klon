@@ -260,8 +260,31 @@ body {
 
 
 
-
-
+<!-- Modal -->
+<div class="modal fade" id="postWindow" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New Tweet</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      
+          <div class="form-group">
+    <label id="tweetChars" for="exampleFormControlTextarea1">140/140</label>
+    <textarea id="tweetInput" class="form-control" rows="3" maxlength='140'></textarea>
+  
+  </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button id="sendTweetButton" type="button" class="btn btn-success">Tweet</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
@@ -279,7 +302,7 @@ body {
         <div class="row">
             <div class="col-md-12">
                 <div class="btn-group">
-                    <a href="javascript:void(0)" class="btn btn-success btn-fab" id="main">
+                    <a href="javascript:void(0)" class="btn btn-success btn-fab" id="main" style="z-index: 999;">
                         <i class="material-icons">
                             <svg style="width:24px;height:24px" viewBox="0 0 24 24">
                                 <path fill="#000000" d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
@@ -436,15 +459,87 @@ $(document).ready(function() {
 	var win = $(window);
 	var loc = 0;
 	var lock = 1;
+	var tweetButton = document.getElementById('main');
+	var sendTweetButton = document.getElementById('sendTweetButton');
+	
+	
+	
+	
+	
+	
+	
+	
+	tweetButton.addEventListener('click', function() {
+		
+		$('#postWindow').modal({
+			  keyboard: false
+			})
+		}, false);
+	
+	
+	
+	
+	
+	
+	
+
+	
+	$('#tweetInput').on("input", function(){
+	    var maxlength = $(this).attr("maxlength");
+	    var currentLength = $(this).val().length;
+
+	    if( currentLength >= maxlength ){
+	        console.log(maxlength - currentLength + " chars left");
+	        $('#tweetChars').text(maxlength - currentLength + "/140"); 
+	    }else{
+	        console.log(maxlength - currentLength + " chars left");
+	        $('#tweetChars').text(maxlength - currentLength + "/140"); 
+	    }
+	});
+	
+	
+	
+	sendTweetButton.addEventListener('click', function() {
+		
+		var recipient = $('#loginInput').serializeArray();
+		console.log(recipient);
+		var output = {}; // Declare an object.
+		output["contend"] = "test"; // Assign the current value to the current key.
+		console.log(output);
+		$.ajax({
+		    url: "/api/v1/timeline/self",
+		    type: "POST",
+		    data: JSON.stringify(output), // Send the object.
+		    contentType: "application/json",
+		    statusCode: {
+		        201: function (response) {
+		        	console.log("Tweet OK");
+		        	
+		        },
+		        401: function (response) {
+		        	console.log("Tweet Fail");
+		        }
+		     },
+		    success: function(response) {
+		      console.log(response);
+		    }
+		    
+		    
+		  });
+		}, false);
+	
+	
+	
 	// Each time the user scrolls
 	win.scroll(function() {
 		// End of the document reached?
 		if ($(document).height() - win.height() == win.scrollTop() && lock == 1) {
 			lock = 0;
+			url = $(location).attr('pathname');
 			$('#loading').show();
 			$.ajax({
 				url: "http://httpbin.org/post",
-				dataType: 'html',
+				type: "GET",
 			    statusCode: {
 			        405: function (response) {
                         $('#loading').delay(2000).hide(0);
