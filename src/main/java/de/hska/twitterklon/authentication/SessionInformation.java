@@ -10,7 +10,6 @@ public abstract class SessionInformation {
       return user.get() == null ? "" : user.get().name;
     }
 
-
     public static String getUuid() {
         return user.get() == null ? "" : user.get().uuid;
     }

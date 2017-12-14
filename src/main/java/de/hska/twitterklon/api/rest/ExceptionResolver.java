@@ -8,6 +8,7 @@ import de.hska.twitterklon.api.transferobjects.ErrorResultTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -27,6 +28,11 @@ public class ExceptionResolver {
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public ResponseEntity<ErrorResultTO> resolveHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException ex) {
         return ErrorLogCreator.create(HttpStatus.METHOD_NOT_ALLOWED, ex.getMessage()).log().createResponseEntity();
+    }
+
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public ResponseEntity<ErrorResultTO> resolveMissingServletRequestParamterException(MissingServletRequestParameterException ex) {
+        return ErrorLogCreator.create(HttpStatus.BAD_REQUEST, ex.getMessage()).log().createResponseEntity();
     }
 
     @ExceptionHandler(Exception.class)
