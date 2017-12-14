@@ -501,7 +501,8 @@ $(document).ready(function() {
 			//alert(obj.id + obj.content + obj.time + obj.name);
 			
 			
-			var secAgo = timeSince(obj.time);
+var time = new Date(obj.time);
+			var secAgo = timeSince(time);
 			
 		      	if (loc == 0) {
 		    	    loc = 1;
