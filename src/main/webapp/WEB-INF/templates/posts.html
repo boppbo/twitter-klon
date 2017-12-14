@@ -469,19 +469,24 @@ $(document).ready(function() {
 	
 	
 // 	var json = [
-// 		{"id":"1","content":"apple","time":"534634","name":"Bobo der Baumeister"},
-// 		{"id":"2","content":"apple","time":"534634","name":"Bobo der Baumeister"},
-// 		{"id":"3","content":"apple","time":"534634","name":"Bobo der Baumeister"},
-// 		{"id":"4","content":"apple","time":"534634","name":"Bobo der Baumeister"},
-// 		{"id":"5","content":"apple","time":"534634","name":"Bobo der Baumeister"},
-// 		{"id":"6","content":"apple","time":"534634","name":"Bobo der Baumeister"},
-// 		{"id":"7","content":"apple","time":"534634","name":"Bobo der Baumeister"},
-// 		{"id":"8","content":"apple","time":"534634","name":"Bobo der Baumeister"},
-// 		{"id":"9","content":"apple","time":"534634","name":"Bobo der Baumeister"},
-// 		{"id":"10","content":"apple","time":"534634","name":"Bobo der Baumeister"},
-// 		{"id":"11","content":"apple","time":"534634","name":"Bobo der Baumeister"},
-// 		{"id":"12","content":"apple","time":"534634","name":"Bobo der Baumeister"}
-// 	];
+// 		{"id":"1","content":"apple","time":"1513263660","name":"Bobo der Baumeister"},
+// 		{"id":"1","content":"apple","time":"1513263305","name":"Bobo der Baumeister"},
+// 		{"id":"1","content":"apple","time":"1513263305","name":"Bobo der Baumeister"},
+// 		{"id":"1","content":"apple","time":"1513263660","name":"Bobo der Baumeister"},
+// 		{"id":"1","content":"apple","time":"1513263305","name":"Bobo der Baumeister"},
+// 		{"id":"1","content":"apple","time":"1513263660","name":"Bobo der Baumeister"},
+// 		{"id":"1","content":"apple","time":"1513263305","name":"Bobo der Baumeister"},
+// 		{"id":"1","content":"apple","time":"1513263305","name":"Bobo der Baumeister"},
+// 		{"id":"1","content":"apple","time":"1513263305","name":"Bobo der Baumeister"},
+// 		{"id":"1","content":"apple","time":"1513263305","name":"Bobo der Baumeister"},
+// 		{"id":"1","content":"apple","time":"1513263305","name":"Bobo der Baumeister"},
+// 		{"id":"1","content":"apple","time":"1513263305","name":"Bobo der Baumeister"},
+// 		{"id":"1","content":"apple","time":"1513263305","name":"Bobo der Baumeister"},
+// 		{"id":"1","content":"apple","time":"1513263305","name":"Bobo der Baumeister"},
+// 		{"id":"1","content":"apple","time":"1513263305","name":"Bobo der Baumeister"},
+// 		{"id":"1","content":"apple","time":"1513263305","name":"Bobo der Baumeister"},
+// 		{"id":"1","content":"apple","time":"1513263305","name":"Bobo der Baumeister"}
+	];
 
 // 	$.each(json, function(idx, obj) {
 // 		alert(obj.id);
@@ -501,7 +506,7 @@ $(document).ready(function() {
 			//alert(obj.id + obj.content + obj.time + obj.name);
 			
 			
-			var time = new Date(obj.time);
+			var time = new Date(1000 * obj.time);
 			var secAgo = timeSince(time);
 			
 		      	if (loc == 0) {
@@ -522,7 +527,7 @@ $(document).ready(function() {
 			
 		  });
 		 
-		});
+ 		});
 
 	
 	
