@@ -30,6 +30,9 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
                 if (cookie.getValue() != null) {
                     Optional<String> userName = redisDataService.getUserNameFromSession(cookie.getValue());
                     userName.ifPresent(s -> SessionInformation.setUser(s, cookie.getValue()));
+                    if(SessionInformation.isUserSignedIn()) {
+                        return true;
+                    }
                 }
             }
         }
@@ -38,7 +41,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
             response.sendRedirect("/login");
             return false;
         }
-        return true;
+        return isPublicURI(request);
     }
 
     private boolean isPublicURI(HttpServletRequest request) {
