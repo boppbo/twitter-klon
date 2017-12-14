@@ -91,7 +91,7 @@ $.ajax({
     data: JSON.stringify(output), // Send the object.
     contentType: "application/json",
     statusCode: {
-        200: function (response) {
+        201: function (response) {
         	window.location = "/";
         },
         409: function (response) {
