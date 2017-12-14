@@ -314,8 +314,13 @@ body {
         </div>
     </div>
 
+    <div id="noPost" class="alert alert-secondary" style="display: none;" role="alert">
+  Nothing to show :(
+</div>
 
     <ul id="timeline" class="timeline" style="margin-top: 2rem">
+    
+
     
 <!--     <li th:block th:each="post : ${posts}"> -->
 <!--         <div class="timeline-badge"> -->
@@ -503,35 +508,35 @@ $(document).ready(function() {
 		  var items = [];
 		  
 		    if ( data.length == 0 ) {
-		        console.log("NO DATA!")
+		        console.log("NO DATA!");
+		      $('#timeline').hide();
+		      $('#noPost').show();
 		    }
 		  
-		  
-		  $.each( data, function( id, obj ) {
-		//    items.push( "<li id='" + key + "'>" + val + "</li>" );
-			//alert(obj.id + obj.content + obj.time + obj.name);
-			
-			
-			var time = new Date(1000*obj.time);
-			var secAgo = timeSince(time);
-			
-		      	if (loc == 0) {
-		    	    loc = 1;
-		    	    var html = '<li style="display: none" class="timeline-inverted"><div class="timeline-badge"><a><i class="fa fa-circle invert" id="' +obj.id + '"></i></a></div><div class="timeline-panel"><div class="timeline-heading"><h4>' +obj.name + '</h4></div><div class="timeline-body"><p>' +obj.content + '</p></div><div class="timeline-footer primary"><p class="text-right">' + secAgo + '</p></div></div></li>';
-		    	    $(html).insertBefore('#clearfix').fadeIn( "slow" );
-		    	    lock = 1;
-		    	} else {
-		    	    loc = 0;
-		    	    var html = '<li style="display: none"><div class="timeline-badge"><a><i class="fa fa-circle" id="' +obj.id + '"></i></a></div><div class="timeline-panel"><div class="timeline-heading"><h4>' +obj.name + '</h4></div><div class="timeline-body"><p>' +obj.content + '</p></div><div class="timeline-footer"><p class="text-right">' + secAgo + '</p></div></div></li>';
-					$(html).insertBefore('#clearfix').show('slow');
-					lock = 1;
-		    	}
-			
-			
-			
-			
-			
-		  });
+		    else{
+				  $.each( data, function( id, obj ) {
+						//    items.push( "<li id='" + key + "'>" + val + "</li>" );
+							//alert(obj.id + obj.content + obj.time + obj.name);
+							
+							
+							var time = new Date(1000*obj.time);
+							var secAgo = timeSince(time);
+							
+						      	if (loc == 0) {
+						    	    loc = 1;
+						    	    var html = '<li style="display: none" class="timeline-inverted"><div class="timeline-badge"><a><i class="fa fa-circle invert" id="' +obj.id + '"></i></a></div><div class="timeline-panel"><div class="timeline-heading"><h4>' +obj.name + '</h4></div><div class="timeline-body"><p>' +obj.content + '</p></div><div class="timeline-footer primary"><p class="text-right">' + secAgo + '</p></div></div></li>';
+						    	    $(html).insertBefore('#clearfix').fadeIn( "slow" );
+						    	    lock = 1;
+						    	} else {
+						    	    loc = 0;
+						    	    var html = '<li style="display: none"><div class="timeline-badge"><a><i class="fa fa-circle" id="' +obj.id + '"></i></a></div><div class="timeline-panel"><div class="timeline-heading"><h4>' +obj.name + '</h4></div><div class="timeline-body"><p>' +obj.content + '</p></div><div class="timeline-footer"><p class="text-right">' + secAgo + '</p></div></div></li>';
+									$(html).insertBefore('#clearfix').show('slow');
+									lock = 1;
+						    	}	
+							
+						  });	
+		    }
+
 		 
  		});
 
