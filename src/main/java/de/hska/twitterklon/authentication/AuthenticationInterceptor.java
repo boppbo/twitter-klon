@@ -36,6 +36,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
 
         if(!isPublicURI(request) && !SessionInformation.isUserSignedIn()) {
             response.sendRedirect("/login");
+            return false;
         }
         return true;
     }
