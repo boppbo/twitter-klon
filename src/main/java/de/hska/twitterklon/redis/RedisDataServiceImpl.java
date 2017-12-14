@@ -21,10 +21,12 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class RedisDataServiceImpl implements RedisDataService {
     private static final String AUTH_KEY = "Auth";
-    private static final String POSTS_KEY = "Posts";
-    private static final String TIMELINE_KEY = "Timeline";
+    private static final String GLOBAL_TIMELINE_KEY = "Timeline:Global";
+    private static final String PROFILE_TIMELINE_KEY = "Timeline:Profile";
+    private static final String USER_TIMELINE_KEY = "Timeline:User";
+
     private final StringRedisTemplate redisTemplate;
-    //Auth:<UUID> (String of Username
+    //Auth:<UUID> (String of Username)
     private final ValueOperations<String, String> opsForAuth;
 
     //Users (Hash)
@@ -43,19 +45,19 @@ public class RedisDataServiceImpl implements RedisDataService {
     //    •	TimeStamp (String)
     //    •	UserName (String)
     private final PostRepository posts;
-    //Posts:<UserName> (List of <postUUID>)
-    //Timeline (List of <postUUID>)
-    //Timeline:<UserName> (List of <postUUID>)
+    //Timeline:Global (List of <postUUID>)
+    //Timeline:Profile:<UserName> (List of <postUUID>)
+    //Timeline:User:<UserName> (List of <postUUID>)
     private final ListOperations<String, String> listOps;
 
     private String buildAuthKey(String authKey) {
         return AUTH_KEY + ":" + authKey;
     }
     private String buildPostsKey(String userName) {
-        return POSTS_KEY + ":" + userName;
+        return PROFILE_TIMELINE_KEY + ":" + userName;
     }
     private String buildTimelineKey(String userName) {
-        return TIMELINE_KEY + ":" + userName;
+        return USER_TIMELINE_KEY + ":" + userName;
     }
     private List<PostDto> getPostsFromId(List<String> postIds) {
         ArrayList<PostDto> result = new ArrayList<>();
@@ -152,7 +154,8 @@ public class RedisDataServiceImpl implements RedisDataService {
 
         PostDto post = this.posts.save(new PostDto(content));
         this.listOps.leftPush(buildPostsKey(post.getUserName()), post.getId());
-        this.listOps.leftPush(TIMELINE_KEY, post.getId());
+        this.listOps.leftPush(buildTimelineKey(post.getUserName()), post.getId());
+        this.listOps.leftPush(GLOBAL_TIMELINE_KEY, post.getId());
 
         for (String follower: this.userRel.getFollower(post.getUserName())) {
             this.listOps.leftPush(buildTimelineKey(follower), post.getId());
@@ -168,7 +171,7 @@ public class RedisDataServiceImpl implements RedisDataService {
     @Override
     public List<PostDto> getLatestTimeline(String userName, int postCount, int skipCount) {
         String key = StringUtils.isEmpty(userName)
-                ? TIMELINE_KEY
+                ? GLOBAL_TIMELINE_KEY
                 : buildTimelineKey(userName);
         List<String> ids = this.listOps.range(key, skipCount, skipCount + postCount);
         return this.getPostsFromId(ids);
