@@ -39,6 +39,10 @@
  <div id="loginError" style="display: none;" class="alert alert-danger" role="alert">
   Ungültiger Benutzername oder Password!
 </div>
+
+ <div id="registerError" style="display: none;" class="alert alert-danger" role="alert">
+  Der Benutzername ist schon vergeben!
+</div>
   
   <button id="loginButton" type="button" class="btn btn-outline-success float-right">Login</button>
   <button style="display: none;" id="backToLogin" type="button" class="btn btn-outline-success float-left">Back to Login</button>
@@ -66,11 +70,30 @@ var registerButton = document.getElementById('registerButton');
 var loginButton = document.getElementById('loginButton');
 
 
+
+
+
+var json = [
+	{"id":"1","tagName":"apple"},
+	{"id":"fsdf","tagName":"orange"},
+	{"id":"3","tagName":"banana"},
+	{"id":"4","tagName":"watermelon"},
+	{"id":"5","tagName":"pineapple"}
+];
+
+$.each(json, function(idx, obj) {
+	alert(obj.id);
+	alert(obj.tagName);
+});
+
+
+
+
 registerButton.addEventListener('click', function() {
-$('#loginHeader').hide();
-$('#loginButton').hide();
-$('#registerHeader').show();
-$('#backToLogin').show();
+//$('#loginHeader').hide();
+//$('#loginButton').hide();
+//$('#registerHeader').show();
+//$('#backToLogin').show();
 var recipient = $('#loginInput').serializeArray();
 console.log(recipient);
 var output = {}; // Declare an object.
@@ -85,10 +108,10 @@ $.ajax({
     contentType: "application/json",
     statusCode: {
         200: function (response) {
-        	
+        	window.location = "/";
         },
-        401: function (response) {
-        	
+        409: function (response) {
+        	$("#registerError").show().delay(3000).fadeOut("slow");
         }
      },
     success: function(response) {
@@ -97,21 +120,23 @@ $.ajax({
     
     
   });
-$('#registerButton').css('float','right');
-$('#registerButton').animate({
-	left: '100px'
-},100);
+//$('#registerButton').css('float','right');
+//$('#registerButton').animate({
+//	left: '100px'
+//},100);
 }, false);
+
+
 var myEl = document.getElementById('backToLogin');
 myEl.addEventListener('click', function() {
-$('#loginHeader').show();
-$('#loginButton').show();
-$('#registerHeader').hide();
-$('#backToLogin').hide();
-$('#registerButton').css('float','left');
-$('#registerButton').animate({
-	left: '100px'
-},100);
+// $('#loginHeader').show();
+// $('#loginButton').show();
+// $('#registerHeader').hide();
+// $('#backToLogin').hide();
+// $('#registerButton').css('float','left');
+// $('#registerButton').animate({
+// 	left: '100px'
+// },100); 
 
 
 
@@ -156,7 +181,7 @@ loginButton.addEventListener('click', function() {
 	})
 	console.log(output);
 	$.ajax({
-	    url: "/api/v1/login",
+	    url: "http://127.0.0.1/api/v1/login",
 	    type: "POST",
 	    data: JSON.stringify(output), // Send the object.
 	    contentType: "application/json",
