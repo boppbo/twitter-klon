@@ -29,7 +29,7 @@ public class PostDto {
     }
 
     public PostDto(String content) {
-        this("", content, SessionInformation.getUserName(), String.valueOf(System.currentTimeMillis()));
+        this(null, content, SessionInformation.getUserName(), String.valueOf(System.currentTimeMillis()));
     }
 
     public PostDto(String id, String content, String userName, String creationTime) {
