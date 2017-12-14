@@ -501,16 +501,16 @@ $(document).ready(function() {
 			//alert(obj.id + obj.content + obj.time + obj.name);
 			
 			
-			
+			var secAgo = timeSince(obj.time)
 			
 		      	if (loc == 0) {
 		    	    loc = 1;
-		    	    var html = '<li style="display: none" class="timeline-inverted"><div class="timeline-badge"><a><i class="fa fa-circle invert" id="' +obj.id + '"></i></a></div><div class="timeline-panel"><div class="timeline-heading"><h4>' +obj.name + '</h4></div><div class="timeline-body"><p>' +obj.content + '</p></div><div class="timeline-footer primary"><p class="text-right">' +obj.time + '</p></div></div></li>';
+		    	    var html = '<li style="display: none" class="timeline-inverted"><div class="timeline-badge"><a><i class="fa fa-circle invert" id="' +obj.id + '"></i></a></div><div class="timeline-panel"><div class="timeline-heading"><h4>' +obj.name + '</h4></div><div class="timeline-body"><p>' +obj.content + '</p></div><div class="timeline-footer primary"><p class="text-right">' + secAgo + '</p></div></div></li>';
 		    	    $(html).insertBefore('#clearfix').fadeIn( "slow" );
 		    	    lock = 1;
 		    	} else {
 		    	    loc = 0;
-		    	    var html = '<li style="display: none"><div class="timeline-badge"><a><i class="fa fa-circle" id="' +obj.id + '"></i></a></div><div class="timeline-panel"><div class="timeline-heading"><h4>' +obj.name + '</h4></div><div class="timeline-body"><p>' +obj.content + '</p></div><div class="timeline-footer"><p class="text-right">' +obj.time + '</p></div></div></li>';
+		    	    var html = '<li style="display: none"><div class="timeline-badge"><a><i class="fa fa-circle" id="' +obj.id + '"></i></a></div><div class="timeline-panel"><div class="timeline-heading"><h4>' +obj.name + '</h4></div><div class="timeline-body"><p>' +obj.content + '</p></div><div class="timeline-footer"><p class="text-right">' + secAgo + '</p></div></div></li>';
 					$(html).insertBefore('#clearfix').show('slow');
 					lock = 1;
 		    	}
@@ -528,7 +528,25 @@ $(document).ready(function() {
 	
 	
 	
-	
+	  function timeSince(timeStamp) {
+		    var now = new Date(),
+		      secondsPast = (now.getTime() - timeStamp.getTime()) / 1000;
+		    if(secondsPast < 60){
+		      return parseInt(secondsPast) + 's';
+		    }
+		    if(secondsPast < 3600){
+		      return parseInt(secondsPast/60) + 'm';
+		    }
+		    if(secondsPast <= 86400){
+		      return parseInt(secondsPast/3600) + 'h';
+		    }
+		    if(secondsPast > 86400){
+		        day = timeStamp.getDate();
+		        month = timeStamp.toDateString().match(/ [a-zA-Z]*/)[0].replace(" ","");
+		        year = timeStamp.getFullYear() == now.getFullYear() ? "" :  " "+timeStamp.getFullYear();
+		        return day + " " + month + year;
+		    }
+		  }
 
 	
 	
