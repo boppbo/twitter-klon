@@ -14,3 +14,4 @@ logs/
 .DS_Store
 atlassian-ide-plugin.xml
 strongEncryption.properties
+/.metadata/
