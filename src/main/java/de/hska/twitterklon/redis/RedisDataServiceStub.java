@@ -26,6 +26,11 @@ public class RedisDataServiceStub implements RedisDataService {
     }
 
     @Override
+    public List<String> searchUser(String searchTerm, int resultCount, int skipCount) {
+        return null;
+    }
+
+    @Override
     public Optional<String> createSession(String userName, String password, int sessionDuration) {
         String uuid = UUID.randomUUID().toString();
         sessions.put(userName, uuid);

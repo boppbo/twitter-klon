@@ -88,6 +88,16 @@ public class RedisDataServiceImpl implements RedisDataService {
     }
 
     @Override
+    public List<String> searchUser(String searchTerm, int resultCount, int skipCount) {
+        searchTerm = searchTerm.trim();
+
+        if (StringUtils.isEmpty(searchTerm))
+            throw new IllegalArgumentException("searchTerm");
+
+        return this.users.searchUser(searchTerm, resultCount, skipCount);
+    }
+
+    @Override
     public Optional<String> createSession(String userName, String password, int sessionDuration) {
         if (StringUtils.isEmpty(userName))
             throw new IllegalArgumentException("userName");

@@ -10,7 +10,7 @@ import java.util.stream.StreamSupport;
 
 @Repository
 public interface UserRepository extends CrudRepository<UserEntity, String> {
-    default List<String> searchUser(String searchKey, int resultCount) {
+    default List<String> searchUser(String searchKey, int resultCount, int skipCount) {
         /* Elegant solution I can't use because of repositories :-(
         ArrayList<String> result = new ArrayList<>();
         Cursor<Map.Entry<String, UserEntity>> curser = hashOps.scan(ScanOptions.scanOptions()
@@ -25,6 +25,8 @@ public interface UserRepository extends CrudRepository<UserEntity, String> {
         return StreamSupport.stream(this.findAll().spliterator(), false)
                             .map(UserEntity::getUserName)
                             .filter(un -> un.contains(searchKey))
+                            .sorted()
+                            .skip(skipCount)
                             .limit(resultCount)
                             .collect(Collectors.toList());
     }
