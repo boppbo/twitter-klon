@@ -486,7 +486,7 @@ $(document).ready(function() {
 // 		{"id":"1","content":"apple","time":"1513263305","name":"Bobo der Baumeister"},
 // 		{"id":"1","content":"apple","time":"1513263305","name":"Bobo der Baumeister"},
 // 		{"id":"1","content":"apple","time":"1513263305","name":"Bobo der Baumeister"}
-	];
+//	];
 
 // 	$.each(json, function(idx, obj) {
 // 		alert(obj.id);
@@ -501,6 +501,12 @@ $(document).ready(function() {
 
 	$.getJSON( "api/v1/timeline/global?skipCount=0", function( data ) {
 		  var items = [];
+		  
+		    if ( json.length == 0 ) {
+		        console.log("NO DATA!")
+		    }
+		  
+		  
 		  $.each( data, function( id, obj ) {
 		//    items.push( "<li id='" + key + "'>" + val + "</li>" );
 			//alert(obj.id + obj.content + obj.time + obj.name);
