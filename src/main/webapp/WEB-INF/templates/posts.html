@@ -468,20 +468,20 @@ $(document).ready(function() {
 	
 	
 	
-	var json = [
-		{"id":"1","content":"apple","time":"534634","name":"Bobo der Baumeister"},
-		{"id":"2","content":"apple","time":"534634","name":"Bobo der Baumeister"},
-		{"id":"3","content":"apple","time":"534634","name":"Bobo der Baumeister"},
-		{"id":"4","content":"apple","time":"534634","name":"Bobo der Baumeister"},
-		{"id":"5","content":"apple","time":"534634","name":"Bobo der Baumeister"},
-		{"id":"6","content":"apple","time":"534634","name":"Bobo der Baumeister"},
-		{"id":"7","content":"apple","time":"534634","name":"Bobo der Baumeister"},
-		{"id":"8","content":"apple","time":"534634","name":"Bobo der Baumeister"},
-		{"id":"9","content":"apple","time":"534634","name":"Bobo der Baumeister"},
-		{"id":"10","content":"apple","time":"534634","name":"Bobo der Baumeister"},
-		{"id":"11","content":"apple","time":"534634","name":"Bobo der Baumeister"},
-		{"id":"12","content":"apple","time":"534634","name":"Bobo der Baumeister"}
-	];
+// 	var json = [
+// 		{"id":"1","content":"apple","time":"534634","name":"Bobo der Baumeister"},
+// 		{"id":"2","content":"apple","time":"534634","name":"Bobo der Baumeister"},
+// 		{"id":"3","content":"apple","time":"534634","name":"Bobo der Baumeister"},
+// 		{"id":"4","content":"apple","time":"534634","name":"Bobo der Baumeister"},
+// 		{"id":"5","content":"apple","time":"534634","name":"Bobo der Baumeister"},
+// 		{"id":"6","content":"apple","time":"534634","name":"Bobo der Baumeister"},
+// 		{"id":"7","content":"apple","time":"534634","name":"Bobo der Baumeister"},
+// 		{"id":"8","content":"apple","time":"534634","name":"Bobo der Baumeister"},
+// 		{"id":"9","content":"apple","time":"534634","name":"Bobo der Baumeister"},
+// 		{"id":"10","content":"apple","time":"534634","name":"Bobo der Baumeister"},
+// 		{"id":"11","content":"apple","time":"534634","name":"Bobo der Baumeister"},
+// 		{"id":"12","content":"apple","time":"534634","name":"Bobo der Baumeister"}
+// 	];
 
 // 	$.each(json, function(idx, obj) {
 // 		alert(obj.id);
@@ -494,9 +494,9 @@ $(document).ready(function() {
 
 
 
-	//$.getJSON( "ajax/test.json", function( data ) {
+	$.getJSON( "api/v1/timeline/global?skipCount=0", function( data ) {
 		  var items = [];
-		  $.each( json, function( id, obj ) {
+		  $.each( data, function( id, obj ) {
 		//    items.push( "<li id='" + key + "'>" + val + "</li>" );
 			//alert(obj.id + obj.content + obj.time + obj.name);
 			
@@ -521,7 +521,7 @@ $(document).ready(function() {
 			
 		  });
 		 
-		//});
+		});
 
 	
 	
@@ -586,6 +586,7 @@ $(document).ready(function() {
 		    statusCode: {
 		        201: function (response) {
 		        	console.log("Tweet OK");
+		        	$('#postWindow').modal('toggle');
 		        	
 		        },
 		        401: function (response) {
