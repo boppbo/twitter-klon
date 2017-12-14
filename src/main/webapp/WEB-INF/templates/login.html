@@ -86,7 +86,7 @@ output[v.name] = v.value; // Assign the current value to the current key.
 })
 console.log(output);
 $.ajax({
-    url: "http://127.0.0.1/api/v1/register",
+    url: "api/v1/register",
     type: "POST",
     data: JSON.stringify(output), // Send the object.
     contentType: "application/json",
@@ -111,8 +111,8 @@ $.ajax({
 }, false);
 
 
-var myEl = document.getElementById('backToLogin');
-myEl.addEventListener('click', function() {
+// var myEl = document.getElementById('backToLogin');
+// myEl.addEventListener('click', function() {
 // $('#loginHeader').show();
 // $('#loginButton').show();
 // $('#registerHeader').hide();
@@ -125,30 +125,30 @@ myEl.addEventListener('click', function() {
 
 
 
-$.ajax({
-    url: "/api/v1/register",
-    type: "POST",
-    data: JSON.stringify(output), // Send the object.
-    contentType: "application/json",
-    statusCode: {
-        200: function (response) {
-        	window.location = "/";
+// $.ajax({
+//     url: "/api/v1/register",
+//     type: "POST",
+//     data: JSON.stringify(output), // Send the object.
+//     contentType: "application/json",
+//     statusCode: {
+//         200: function (response) {
+//         	window.location = "/";
         	
-        },
-        401: function (response) {
-        	$("#loginError").show().delay(3000).fadeOut("slow");
-        }
-     },
-    success: function(response) {
-      console.log(response);
-    }
+//         },
+//         401: function (response) {
+//         	$("#loginError").show().delay(3000).fadeOut("slow");
+//         }
+//      },
+//     success: function(response) {
+//       console.log(response);
+//     }
     
     
-  });
+//   });
 
 
 
-}, false);
+// }, false);
 
 
 
@@ -165,7 +165,7 @@ loginButton.addEventListener('click', function() {
 	})
 	console.log(output);
 	$.ajax({
-	    url: "http://127.0.0.1/api/v1/login",
+	    url: "api/v1/login",
 	    type: "POST",
 	    data: JSON.stringify(output), // Send the object.
 	    contentType: "application/json",
