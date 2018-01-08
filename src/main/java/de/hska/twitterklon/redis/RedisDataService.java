@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface RedisDataService {
     void createUser(String userName, String password);
     List<String> searchUser(String searchTerm, int resultCount, int skipCount);
-    Optional<String> createSession(String userName, String password, int sessionDuration);
+    Optional<String> createSession(String userName, String password);
     Optional<String> getUserNameFromSession(String sessionUUID);
     void  removeSession(String sessionUUID);
 

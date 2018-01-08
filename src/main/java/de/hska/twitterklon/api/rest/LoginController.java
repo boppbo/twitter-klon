@@ -23,10 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("api/v1/")
 public class LoginController {
-
-    @Value("${appConfig.sessionTimeout}")
-    private int sessionTTL;
-
     private final RedisDataService redisDataService;
 
     @Autowired
@@ -57,7 +53,7 @@ public class LoginController {
     }
 
     private void createSession(HttpServletResponse response, @Valid @RequestBody LoginTO loginTO) {
-        Optional<String> uuid = redisDataService.createSession(loginTO.getUserId(), loginTO.getPassword(), sessionTTL);
+        Optional<String> uuid = redisDataService.createSession(loginTO.getUserId(), loginTO.getPassword());
 
         if(!uuid.isPresent()) {
             throw new LoginFailedException();

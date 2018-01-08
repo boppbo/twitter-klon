@@ -6,6 +6,7 @@ import de.hska.twitterklon.redis.repositories.UserRelationshipRepository;
 import de.hska.twitterklon.redis.repositories.UserRepository;
 import de.hska.twitterklon.redis.repositories.entities.UserEntity;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -53,6 +54,9 @@ public class RedisDataServiceImpl implements RedisDataService {
     //Timeline:Profile:<UserName> (List of <postUUID>)
     //Timeline:User:<UserName> (List of <postUUID>)
     private final ListOperations<String, String> listOps;
+
+    @Value("${appConfig.sessionTimeout}")
+    private int sessionTTL;
 
     private String buildAuthKey(String authKey) {
         return AUTH_KEY + ":" + authKey;
@@ -103,7 +107,7 @@ public class RedisDataServiceImpl implements RedisDataService {
     }
 
     @Override
-    public Optional<String> createSession(String userName, String password, int sessionDuration) {
+    public Optional<String> createSession(String userName, String password) {
         if (StringUtils.isEmpty(userName))
             throw new IllegalArgumentException("userName");
         if(StringUtils.isEmpty(password))
@@ -115,7 +119,7 @@ public class RedisDataServiceImpl implements RedisDataService {
 
 
         String authKey = UUID.randomUUID().toString();
-        this.opsForAuth.set(buildAuthKey(authKey), u.getUserName(), sessionDuration, TimeUnit.SECONDS);
+        this.opsForAuth.set(buildAuthKey(authKey), u.getUserName(), sessionTTL, TimeUnit.SECONDS);
 
         u.setAuthKey(authKey);
         return Optional.of(this.users.save(u).getAuthKey());
@@ -133,6 +137,9 @@ public class RedisDataServiceImpl implements RedisDataService {
         UserEntity user = this.users.findOne(userName);
         if (user == null || !user.getAuthKey().equals(sessionUUID))
             return Optional.empty();
+
+        //Reset session timeout.
+        this.opsForAuth.set(buildAuthKey(user.getAuthKey()), user.getUserName(), sessionTTL, TimeUnit.SECONDS);
 
         return Optional.of(user.getUserName());
     }
