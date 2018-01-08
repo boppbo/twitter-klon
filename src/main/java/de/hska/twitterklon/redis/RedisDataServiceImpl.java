@@ -5,10 +5,11 @@ import de.hska.twitterklon.redis.repositories.PostRepository;
 import de.hska.twitterklon.redis.repositories.UserRelationshipRepository;
 import de.hska.twitterklon.redis.repositories.UserRepository;
 import de.hska.twitterklon.redis.repositories.entities.UserEntity;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.ListOperations;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -27,7 +28,7 @@ public class RedisDataServiceImpl implements RedisDataService {
     private static final String USER_TIMELINE_KEY = "Timeline:User";
 
     private final StringRedisTemplate redisTemplate;
-    private final SimpMessagingTemplate stompTemplate;
+    private final RedisTemplate<String, PostDto> redisMessagingTemplate;
 
     //Auth:<UUID> (String of Username)
     private final ValueOperations<String, String> opsForAuth;
@@ -68,16 +69,15 @@ public class RedisDataServiceImpl implements RedisDataService {
         return result;
     }
 
-    public RedisDataServiceImpl(StringRedisTemplate redisTemplate, UserRepository users, UserRelationshipRepository userRel, PostRepository posts, SimpMessagingTemplate stompTemplate) {
+    public RedisDataServiceImpl(StringRedisTemplate redisTemplate, @Qualifier("messaging") RedisTemplate<String, PostDto> redisMessagingTemplate, UserRepository users, UserRelationshipRepository userRel, PostRepository posts) {
         this.redisTemplate = redisTemplate;
         this.opsForAuth = redisTemplate.opsForValue();
         this.listOps = redisTemplate.opsForList();
+        this.redisMessagingTemplate = redisMessagingTemplate;
 
         this.users = users;
         this.userRel = userRel;
         this.posts = posts;
-
-        this.stompTemplate = stompTemplate;
     }
 
     @Override
@@ -174,7 +174,7 @@ public class RedisDataServiceImpl implements RedisDataService {
 
         for (String follower: this.userRel.getFollower(post.getUserName())) {
             this.listOps.leftPush(buildTimelineKey(follower), post.getId());
-            this.stompTemplate.convertAndSend("/topic/timeline/" + follower, post);
+            this.redisMessagingTemplate.convertAndSend("timeline/" + follower, post);
         }
     }
 
