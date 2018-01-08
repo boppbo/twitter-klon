@@ -334,9 +334,30 @@ body {
 			  crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js" integrity="sha256-KWJavOowudybFMUCd547Wvd/u8vUg/2g0uSWYU5Ae+w=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js" integrity="sha256-nkP8cj5xaTdWK/BsZl+57ZCE/Y/i4UNtbNTpgH+6Taw=" crossorigin="anonymous"></script>
 
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+    function enableWebSockets() {
+        var stompClient = Stomp.over(new SockJS('/live'));
+        stompClient.connect({}, function (frame) {
+            stompClient.subscribe('/topic/timeline/' + [[${username}]], function (post) {
+                var postContent = JSON.parse(post.body);
+                alert('There are new posts on your timeline!');
+            });
+        });
+    }
+
+    /*]]>*/
+</script>
 <script>
 $(document).ready(function() {
+    enableWebSockets();
+
+
+
 	var win = $(window);
 	var loc = 0;
 	var lock = 1;
@@ -482,23 +503,21 @@ $(document).ready(function() {
 	
 	
 	sendTweetButton.addEventListener('click', function() {
-		
 		var recipient = $('#loginInput').serializeArray();
 		console.log(recipient);
-		var output = {}; // Declare an object.
-		var input = $('#tweetInput').val();
-		output["content"] = input; // Assign the current value to the current key.
+
+		var output = JSON.stringify({ 'content': $('#tweetInput').val() });
 		console.log(output);
+
 		$.ajax({
 		    url: "/api/v1/timeline/self",
 		    type: "POST",
-		    data: JSON.stringify(output), // Send the object.
+		    data: output, // Send the object.
 		    contentType: "application/json",
 		    statusCode: {
 		        201: function (response) {
 		        	console.log("Tweet OK");
 		        	$('#postWindow').modal('toggle');
-		        	
 		        },
 		        401: function (response) {
 		        	console.log("Tweet Fail");
@@ -507,10 +526,8 @@ $(document).ready(function() {
 		    success: function(response) {
 		      console.log(response);
 		    }
-		    
-		    
-		  });
-		}, false);
+        });
+    }, false);
 	
 	
 	
