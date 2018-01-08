@@ -1,6 +1,5 @@
 package de.hska.twitterklon.redis.repositories.entities;
 
-import com.sun.istack.internal.Nullable;
 import groovy.transform.EqualsAndHashCode;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
@@ -11,10 +10,9 @@ public class UserEntity {
     @Id
     private String userName;
     private String password;
-    @Nullable
     private String authKey;
 
-    public UserEntity(String userName, String password, @Nullable String authKey) {
+    public UserEntity(String userName, String password, String authKey) {
         this.userName = userName;
         this.password = password;
         this.authKey = authKey;
