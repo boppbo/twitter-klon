@@ -24,7 +24,8 @@ public interface UserRepository extends CrudRepository<UserEntity, String> {
 
         return StreamSupport.stream(this.findAll().spliterator(), false)
                             .map(UserEntity::getUserName)
-                            .filter(un -> un.contains(searchKey))
+                            .map(String::toLowerCase)
+                            .filter(un -> un.contains(searchKey.toLowerCase()))
                             .sorted()
                             .skip(skipCount)
                             .limit(resultCount)
