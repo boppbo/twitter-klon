@@ -10,6 +10,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js" integrity="sha256-KWJavOowudybFMUCd547Wvd/u8vUg/2g0uSWYU5Ae+w=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js" integrity="sha256-nkP8cj5xaTdWK/BsZl+57ZCE/Y/i4UNtbNTpgH+6Taw=" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
 
     <style type="text/css">
         @import url(//fonts.googleapis.com/css?family=Open+Sans);
@@ -208,6 +209,31 @@
         }
     </style>
     <style>
+        .ui-autocomplete {
+            position: absolute;
+            z-index: 1000;
+            cursor: default;
+            padding: 0;
+            margin-top: 2px;
+            list-style: none;
+            background-color: #ffffff;
+            border: 1px solid #ccc
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+        .ui-autocomplete > li {
+            padding: 3px 20px;
+        }
+        .ui-autocomplete > li.ui-state-focus {
+            background-color: #DDD;
+        }
+        .ui-helper-hidden-accessible {
+            display: none;
+        }
         .loader {
             border: 5px solid #f3f3f3;
             border-radius: 50%;
@@ -350,17 +376,22 @@
         });
     }
 
-    function timeSince(timeStamp) {
+    function timeSince(timeStamp2) {
+        if(timeStamp2 === '')
+            return '';
+
+        var timeStamp = new Date(1 * timeStamp2);
+
         var now = new Date(),
             secondsPast = (now.getTime() - timeStamp.getTime()) / 1000;
         if(secondsPast < 60){
-            return parseInt(secondsPast) + 's';
+            return parseInt(secondsPast) + 's ago';
         }
         if(secondsPast < 3600){
-            return parseInt(secondsPast/60) + 'm';
+            return parseInt(secondsPast/60) + 'm ago';
         }
         if(secondsPast <= 86400){
-            return parseInt(secondsPast/3600) + 'h';
+            return parseInt(secondsPast/3600) + 'h ago';
         }
         if(secondsPast > 86400){
             day = timeStamp.getDate();
@@ -378,9 +409,9 @@
         var url;
         if (top === 0) {
             $('#loading').show();
-            url = [[${postUrl}]] + '?skipCount=' + postSkip;
+            url = [[${postUrl}]] + '&skipCount=' + postSkip;
         } else {
-            url = [[${postUrl}]] + '?skipCount=0';
+            url = [[${postUrl}]] + '&skipCount=0';
 
         }
 
@@ -406,12 +437,11 @@
                 $('#timeline').show();
                 $('#noPost').hide();
 
-                var time = new Date(1 * obj.time);
-                var secAgo = timeSince(time);
+                var secAgo = timeSince(obj.time);
 
                 if (loctop == 0) {
                     loctop = 1;
-                    var html = '<li style="display: none" class="timeline-inverted"><div class="timeline-badge"><a><i class="fa fa-circle invert" id="' + obj.id + '"></i></a></div><div class="timeline-panel"><div class="timeline-heading"><h4>' + obj.name + '</h4></div><div class="timeline-body"><p>' + obj.content + '</p></div><div class="timeline-footer primary"><p class="text-right">' + secAgo + '</p></div></div></li>';
+                    var html = '<li style="display: none" class="timeline-inverted"><div class="timeline-badge"><a><i class="fa fa-circle invert" id="' + obj.id + '"></i></a></div><div class="timeline-panel"><div class="timeline-heading"><h4><a href="/user/' + obj.name + '" >' + obj.name + '</a></h4></div><div class="timeline-body"><p>' + obj.content + '</p></div><div class="timeline-footer primary"><p class="text-right">' + secAgo + '</p></div></div></li>';
                     $(html).insertBefore('#timeline li:first').fadeIn("slow");
                     lock = 1;
                 } else {
@@ -425,12 +455,11 @@
             else {
                 $.each(data, function (id, obj) {
 
-                    var time = new Date(1 * obj.time);
-                    var secAgo = timeSince(time);
+                    var secAgo = timeSince(obj.time);
 
                     if (loc == 0) {
                         loc = 1;
-                        var html = '<li style="display: none" class="timeline-inverted"><div class="timeline-badge"><a><i class="fa fa-circle invert" id="' + obj.id + '"></i></a></div><div class="timeline-panel"><div class="timeline-heading"><h4>' + obj.name + '</h4></div><div class="timeline-body"><p>' + obj.content + '</p></div><div class="timeline-footer primary"><p class="text-right">' + secAgo + '</p></div></div></li>';
+                        var html = '<li style="display: none" class="timeline-inverted"><div class="timeline-badge"><a><i class="fa fa-circle invert" id="' + obj.id + '"></i></a></div><div class="timeline-panel"><div class="timeline-heading"><h4><a href="/user/' + obj.name + '" >' + obj.name + '</a></h4></div><div class="timeline-body"><p>' + obj.content + '</p></div><div class="timeline-footer primary"><p class="text-right">' + secAgo + '</p></div></div></li>';
                         $(html).insertBefore('#clearfix').fadeIn("slow");
                         lock = 1;
                     } else {
