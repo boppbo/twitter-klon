@@ -1,20 +1,13 @@
 package de.hska.twitterklon.api.rest;
 
-import java.util.List;
-
 import de.hska.twitterklon.api.transferobjects.PostDto;
 import de.hska.twitterklon.authentication.SessionInformation;
 import de.hska.twitterklon.redis.RedisDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/timeline")
@@ -58,7 +51,7 @@ public class TimeLineController {
             @PathVariable("userName") String userName,
             @RequestParam(name = "skipCount", required = true) int skipCount)
     {
-        return redisDataService.getLatestTimeline(userName, POST_COUNT, skipCount);
+        return redisDataService.getLastPosts(userName, POST_COUNT, skipCount);
     }
 
 }
