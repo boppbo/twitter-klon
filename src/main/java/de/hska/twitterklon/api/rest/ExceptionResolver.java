@@ -1,9 +1,7 @@
 package de.hska.twitterklon.api.rest;
 
-import javax.management.openmbean.KeyAlreadyExistsException;
-import javax.servlet.http.HttpServletRequest;
-
 import de.hska.twitterklon.api.exceptions.LoginFailedException;
+import de.hska.twitterklon.api.exceptions.ResourceNotFoundException;
 import de.hska.twitterklon.api.transferobjects.ErrorResultTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,8 +10,15 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import javax.management.openmbean.KeyAlreadyExistsException;
+import javax.servlet.http.HttpServletRequest;
+
 @ControllerAdvice
 public class ExceptionResolver {
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<ErrorResultTO> resolveResourceNotFoundException(ResourceNotFoundException ex) {
+        return ErrorLogCreator.create(HttpStatus.NOT_FOUND, ex.getMessage()).log().createResponseEntity();
+    }
 
     @ExceptionHandler(LoginFailedException.class)
     public ResponseEntity<ErrorResultTO> resolveLoginFailedException(LoginFailedException ex) {

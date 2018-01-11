@@ -1,5 +1,6 @@
 package de.hska.twitterklon.api.rest;
 
+import de.hska.twitterklon.api.exceptions.ResourceNotFoundException;
 import de.hska.twitterklon.api.transferobjects.PostDto;
 import de.hska.twitterklon.authentication.SessionInformation;
 import de.hska.twitterklon.redis.RedisDataService;
@@ -51,6 +52,8 @@ public class TimeLineController {
             @PathVariable("userName") String userName,
             @RequestParam(name = "skipCount", required = true) int skipCount)
     {
+        if (!redisDataService.searchUser(userName, Integer.MAX_VALUE, 0).contains(userName))
+            throw new ResourceNotFoundException();
         return redisDataService.getLastPosts(userName, POST_COUNT, skipCount);
     }
 
