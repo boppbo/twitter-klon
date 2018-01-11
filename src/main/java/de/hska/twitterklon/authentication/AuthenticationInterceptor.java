@@ -1,16 +1,15 @@
 package de.hska.twitterklon.authentication;
 
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.Optional;
+import de.hska.twitterklon.redis.RedisDataService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import de.hska.twitterklon.redis.RedisDataService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Optional;
 
 public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
 
@@ -29,7 +28,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
                 Cookie cookie = authCookie.get();
                 if (cookie.getValue() != null) {
                     Optional<String> userName = redisDataService.getUserNameFromSession(cookie.getValue());
-                    userName.ifPresent(s -> SessionInformation.setUser(s, cookie.getValue()));
+                    SessionInformation.setUser(userName.orElse(null), cookie.getValue());
                     if(SessionInformation.isUserSignedIn()) {
                         return true;
                     }
