@@ -1,5 +1,5 @@
 <nav xmlns:th="http://www.thymeleaf.org" th:fragment="header" class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#" th:text="${siteName}">Demo</a>
+  <a class="navbar-brand" href="/" th:text="${siteName}">Demo</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -8,25 +8,49 @@
     <ul class="navbar-nav mr-auto">
 
     </ul>
-	
-	<ul class="navbar-nav">
-	
-		      <li class="nav-item active">
-        <a th:if="${loggedin}" class="nav-link" href="#">Timeline</a>
+
+    <ul class="navbar-nav">
+
+      <li class="nav-item active">
+        <a th:if="${loggedin}" class="nav-link" th:href="@{/}">Timeline</a>
       </li>
-	
-	      <li class="nav-item active">
-        <a th:if="${loggedin}" class="nav-link" style="margin-right: 20px" href="#" th:text="|Hallo ${username}|">Hallo Demo</a>
+      <li class="nav-item active">
+        <a th:if="${loggedin}" class="nav-link" style="margin-right: 20px" th:href="@{/user/} + ${username}" th:text="|Hello ${username}|">Hello Demo</a>
+      </li>
+      <li class="nav-item active">
+        <a th:if="${loggedin}" class="nav-link" style="margin-right: 20px" th:href="@{/global}">All posts</a>
+      </li>
+      <li class="nav-item active">
         <a th:if="${loggedin}" id="logout" class="nav-link" href="#">Logout</a>
       </li>
-	  
-	  
-	
-	
-    <form th:if="${loggedin}" class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-primary my-2 my-sm-0"style="display: none;" type="submit">Search</button>
-    </form>
-	</ul>
+
+
+
+
+      <form th:if="${loggedin}" class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-primary my-2 my-sm-0"style="display: none;" type="submit">Search</button>
+        <ul class="dropdown-menu" role="menu">
+          <li><a href="#contains">Contains</a></li>
+          <li><a href="#its_equal">It's equal</a></li>
+          <li><a href="#greather_than">Greather than &gt;</a></li>
+          <li><a href="#less_than">Less than &lt; </a></li>
+          <li class="divider"></li>
+          <li><a href="#all">Anything</a></li>
+        </ul>
+      </form>
+    </ul>
   </div>
+  <script>
+      $("#logout").click(function() {
+          $.get({
+              url: "api/v1/logout",
+              success: function(response) {
+                  window.location = "/";
+              }
+          });
+      });
+  </script>
 </nav>
+
+
