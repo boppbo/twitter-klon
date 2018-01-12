@@ -10,7 +10,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js" integrity="sha256-KWJavOowudybFMUCd547Wvd/u8vUg/2g0uSWYU5Ae+w=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js" integrity="sha256-nkP8cj5xaTdWK/BsZl+57ZCE/Y/i4UNtbNTpgH+6Taw=" crossorigin="anonymous"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
 
     <style type="text/css">
         @import url(//fonts.googleapis.com/css?family=Open+Sans);
@@ -410,16 +410,13 @@
         if (top === 0) {
             $('#loading').show();
             url = [[${postUrl}]] + '&skipCount=' + postSkip;
+            postSkip += 16;
         } else {
             url = [[${postUrl}]] + '&skipCount=0';
-
         }
 
         $.getJSON(url, function (data) {
-            postSkip += 16;
-
             $('#loading').hide();
-            var items = [];
 
             if (data.length === 0 && postSkip === 0) {
                 console.log("NO DATA!");

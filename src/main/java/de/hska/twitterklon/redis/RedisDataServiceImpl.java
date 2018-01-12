@@ -187,7 +187,7 @@ public class RedisDataServiceImpl implements RedisDataService {
 
     @Override
     public List<PostDto> getLastPosts(String userName, int postCount, int skipCount) {
-        List<String> ids = this.listOps.range(buildPostsKey(userName), skipCount, skipCount + postCount);
+        List<String> ids = this.listOps.range(buildPostsKey(userName), skipCount, skipCount + postCount - 1);
         return this.getPostsFromId(ids);
     }
 
@@ -196,7 +196,7 @@ public class RedisDataServiceImpl implements RedisDataService {
         String key = StringUtils.isEmpty(userName)
                 ? GLOBAL_TIMELINE_KEY
                 : buildTimelineKey(userName);
-        List<String> ids = this.listOps.range(key, skipCount, skipCount + postCount);
+        List<String> ids = this.listOps.range(key, skipCount, skipCount + postCount - 1);
         return this.getPostsFromId(ids);
     }
 }
