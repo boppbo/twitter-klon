@@ -36,7 +36,7 @@
   <script>
       $("#logout").click(function() {
           $.get({
-              url: "api/v1/logout",
+              url: "/api/v1/logout",
               success: function(response) {
                   window.location = "/";
               }
