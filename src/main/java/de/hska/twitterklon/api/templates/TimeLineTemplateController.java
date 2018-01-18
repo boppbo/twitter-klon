@@ -37,6 +37,7 @@ public class TimeLineTemplateController {
         if (!redisDataService.searchUser(userName, Integer.MAX_VALUE, 0).contains(userName))
             throw new ResourceNotFoundException();
 
+        model.addAttribute("profileUser", userName);
         model.addAttribute("postUrl", "/api/v1/timeline/user/" + userName + "?foo=bar");
         return getTimeLineTemplate(model);
     }

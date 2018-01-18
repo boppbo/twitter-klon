@@ -321,10 +321,6 @@
 
 
 <div class="container col-lg-6">
-
-
-
-
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -339,6 +335,21 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div id="profile">
+        <h1>Profile</h1>
+        <a id="followButton" href="#">Follow</a>
+        <a id="unfollowButton" href="#">Unfollow</a>
+
+        <h2>Following</h2>
+        <ul id="following">
+        </ul>
+
+        <h2>Followers</h2>
+        <ul id="followers"></ul>
+
+        <h1>Timeline</h1>
     </div>
 
     <div id="noPost" class="alert alert-secondary" style="display: none;" role="alert">
@@ -362,6 +373,7 @@
     var loctop = 0;
     var lock = 1;
     var postSkip = 0;
+    var globalUrl = [[${postUrl}]];
 
     function enableWebSockets() {
         var stompClient = Stomp.over(new SockJS('/live'));
@@ -403,13 +415,14 @@
         if (top === undefined) {
             top = 0;
         }
+
         var url;
         if (top === 0) {
             $('#loading').show();
-            url = [[${postUrl}]] + '&skipCount=' + postSkip;
+            url = globalUrl + '&skipCount=' + postSkip;
             postSkip += 16;
         } else {
-            url = [[${postUrl}]] + '&skipCount=0';
+            url = globalUrl + '&skipCount=0';
         }
 
         $.getJSON(url, function (data) {
@@ -466,9 +479,54 @@
         });
     }
 
+    function changeFollow(e) {
+        $.ajax({
+            url: "/api/v1/follow",
+            type: e.data,
+            data: JSON.stringify({ 'name': [[${profileUser}]]}), // Send the object.
+            contentType: "application/json",
+            success: function(response) {
+                location.reload();
+            }
+        });
+    }
+
     $(document).ready(function() {
         enableWebSockets();
         loadPosts(0);
+
+        var profileUser = [[${profileUser}]];
+        // are we on user profile?
+        if(profileUser != null) {
+            var url = '/api/v1/follow/user/' + profileUser;
+
+            $.getJSON(url + '/following', function (data) {
+                $.each(data, function (id, obj) {
+                    $("#following").append('<li><a href="/user/' + obj.name + '">' + obj.name + '</a></li>');
+                });
+            });
+            $.getJSON(url + '/followers', function (data) {
+                $('#unfollowButton').hide();
+
+                $.each(data, function (id, obj) {
+                    $("#followers").append('<li><a href="/user/' + obj.name + '">' + obj.name + '</a></li>');
+                    if (obj.name == [[${username}]]) {
+                        $('#followButton').hide();
+                        $('#unfollowButton').show();
+                    }
+                });
+
+                if ([[${profileUser}]] === [[${username}]]) {
+                    $('#followButton').hide();
+                    $('#unfollowButton').hide();
+                }
+            });
+
+            $('#followButton').click("POST", changeFollow);
+            $('#unfollowButton').click("DELETE", changeFollow);
+        } else {
+            $('#profile').hide();
+        }
 
         //tweetbutton
         document.getElementById('main').addEventListener('click', function() {

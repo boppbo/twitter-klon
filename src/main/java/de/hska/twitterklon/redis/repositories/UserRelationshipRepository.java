@@ -27,13 +27,13 @@ public class UserRelationshipRepository {
     }
 
     public void addFollower(String follower, String following) {
-        this.setOps.add(buildFollows(follower), following);
-        this.setOps.add(buildFollowing(following), follower);
+        this.setOps.add(buildFollows(following), follower);
+        this.setOps.add(buildFollowing(follower), following);
     }
 
     public void removeFollower(String follower, String following) {
-        this.setOps.remove(buildFollows(follower), following);
-        this.setOps.remove(buildFollowing(following), follower);
+        this.setOps.remove(buildFollows(following), follower);
+        this.setOps.remove(buildFollowing(follower), following);
     }
 
     public Set<String> getFollower(String userName) {
